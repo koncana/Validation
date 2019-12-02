@@ -1,0 +1,147 @@
+package com.koncana.validation.entity.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.koncana.validation.entity.models.Student;
+import com.koncana.validation.entity.models.Users;
+import com.koncana.validation.entity.repository.IStudentRepository;
+import com.koncana.validation.entity.repository.IUserRepository;
+
+@Service
+public class UserServiceImpl implements IUserService {
+
+	@Autowired
+	private IUserRepository userRepository;
+
+	@Autowired
+	private IStudentRepository studentRepository;
+
+	@Override
+	@Transactional
+	public Users createUser(final String username, final String password, final String role, final String dni) {
+		final Users user = new Users();
+		user.setUsername(username);
+		user.setPassword(passwordEncoder(password));
+		if (role.isEmpty()) {
+			user.setRole("user");
+		} else {
+			user.setRole(role);
+		}
+		if (dni.isEmpty()) {
+			user.setStudent(null);
+		} else {
+
+			studentRepository.findById(dni).ifPresent((student) -> {
+				user.setStudent(student);
+			});
+
+		}
+
+		System.out.println("asdasdsadsad");
+		return this.userRepository.save(user);
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean deleteUser(String username) {
+		this.userRepository.deleteById(username);
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public List<Users> getUsers() {
+		return (List<Users>) this.userRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public Optional<Users> getUser(final String username) {
+		return this.userRepository.findById(username);
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean updateUser(final String oldUsername, final String newUsername, final String password,
+			final String role, final String dni) {
+		userRepository.findById(oldUsername).ifPresent((oldUser) -> {
+			String oldRole = oldUser.getRole();
+			String oldPassword = oldUser.getPassword();
+			userRepository.deleteById(oldUsername);
+			final Users user = new Users();
+			user.setUsername(newUsername);
+			if (password.isEmpty()) {
+				user.setPassword(oldPassword);
+			} else {
+				user.setPassword(passwordEncoder(password));
+			}
+			if (role.isEmpty()) {
+				user.setRole(oldRole);
+			} else {
+				user.setRole(role);
+			}
+			if (dni.isEmpty()) {
+				user.setStudent(null);
+			} else {
+				studentRepository.findById(dni).ifPresent((student) -> {
+					user.setStudent(student);
+				});
+			}
+			this.userRepository.save(user);
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean saveStudentOnUser(final String username, final String dni) {
+		userRepository.findById(username).ifPresent((userFound) -> {
+			studentRepository.findById(dni).ifPresent((studentFound) -> {
+				userFound.setStudent(studentFound);
+				userRepository.save(userFound);
+			});
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean deleteStudentOnUser(final String username) {
+		userRepository.findById(username).ifPresent((userFound) -> {
+			userFound.setStudent(null);
+			userRepository.save(userFound);
+
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public Student getStudentFromUser(final String username) {
+		Student student = null;
+		userRepository.findById(username).ifPresent((userFound) -> {
+			student.setStudent(userFound.getStudent());
+		});
+		return student;
+	}
+
+	private String passwordEncoder(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.encode(password);
+	}
+
+}

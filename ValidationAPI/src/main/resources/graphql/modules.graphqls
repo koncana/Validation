@@ -1,0 +1,15 @@
+type Modules {
+	cod: ID!,
+	moduleName: String!
+}
+
+extend type Query {
+	getAllModules: [Modules]
+	getModule(cod: ID!): Modules	
+}
+
+extend type Mutation {
+	createModule(cod: ID!, moduleName: String!): Modules
+	deleteModule(cod: ID!): Boolean!
+	updateModule(oldCod: ID!, newCod: Int!, moduleName: String!): Boolean!
+}
