@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      User Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p (click) = "updateUsername()">Username: {{user.username}}</p>
+  <ion-row>
+      <p (click) = "updatePassword()">Password: </p>
+      <ion-input (click) = "updatePassword()" value="password" type="password" readonly></ion-input>
+  </ion-row>
+  <p (click) = "updateRole()">Role: {{user.role}}</p>
+  <ion-button size="small" color="tertiary" (click)='logout()'>Logout</ion-button>
+</ion-content>

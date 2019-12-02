@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Send your Validation
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p>Modules to Contribute</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <p>Code</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Name</p>
+        </ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngFor="let module of contributeModules">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{module.cod}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{module.moduleName}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <!-- <ion-icon name="cog" (click)="modifyContributeModule(module.cod)" slot="end"></ion-icon> -->
+            <ion-icon name="trash" (click)="removeContributeModule(module.cod)" slot="end"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-fab horizontal="end">
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add" (click)="addContributeModule()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <br />
+  <br />
+  <br />
+  <p>Modules to Validate</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <p>Code</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Name</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Status</p>
+        </ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngFor="let validateModule of validateModules">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.module.cod}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.module.moduleName}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.module.status}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <!-- <ion-icon name="cog" (click)="modifyValidateModule(validateModule.module.cod)" class="ion-text-right" slot="end"></ion-icon> -->
+            <ion-icon name="trash" (click)="removeValidateModule(validateModule.module.cod)"
+              class="ion-text-right" slot="end"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-fab horizontal="end">
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add" (click)="addValidateModules()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
