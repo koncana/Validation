@@ -11,7 +11,7 @@ public interface IValidateService {
 	
 	public List<Validate> getAllModulesToValidate(final Student student);
 	
-	public List<Validate> getAllStudentsToValidate(final Modules module);
+	public List<Validate> getAllValidations();
 	
 	public Validate getModuleToValidate(final Student student, final Modules module);
 

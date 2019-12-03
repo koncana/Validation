@@ -22,10 +22,8 @@ public class ValidateQuery implements GraphQLQueryResolver{
 		return this.validateService.getAllModulesToValidate(student);
 	}
 	
-	public List<Validate> getAllStudentsToValidate(final int cod) {
-		Modules module = new Modules();
-		module.setCod(cod);
-		return this.validateService.getAllStudentsToValidate(module);
+	public List<Validate> getAllValidations() {
+		return this.validateService.getAllValidations();
 	}
 
 	public Validate getModuleToValidate(final String studentDni, final int cod) {

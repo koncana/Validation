@@ -38,8 +38,8 @@ public class ValidateServiceImpl implements IValidateService {
 	@Override
 	@Transactional(readOnly = true)
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<Validate> getAllStudentsToValidate(final Modules module) {
-		return this.validateRepository.findByModule(module);
+	public List<Validate> getAllValidations() {
+		return (List<Validate>) this.validateRepository.findAll();
 	}
 
 	@Override

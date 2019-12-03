@@ -1,0 +1,19 @@
+type Validate {
+	student: Student!,
+	module: Modules!,
+	status: String!
+}
+
+extend type Query {
+	getAllModulesToValidate(dni: ID!): [Validate]
+	getModuleToValidate(dni: ID!, cod: ID!): Validate	
+	getAllStudentsToValidate(cod: ID!): [Validate]
+}
+
+extend type Mutation {
+	createValidate(dni: ID!, cod: ID!): Boolean!
+	updateValidate(dni: ID!, cod: ID!, status: String!): Validate
+	deleteValidate(dni: ID!, cod: ID!): Boolean!
+	deleteValidateByStudent(dni: ID!): Boolean!
+	deleteValidateByModule(cod: ID!): Boolean!
+}

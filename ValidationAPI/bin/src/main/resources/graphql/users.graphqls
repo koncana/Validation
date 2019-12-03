@@ -1,0 +1,20 @@
+type Users {
+	username: ID!,
+	password: String!,
+	role: String!,
+	student: Student
+}
+
+extend type Query {
+	getUsers: [Users]!
+	getUser(username: ID!): Users		
+	getStudentFromUser(username: ID!): Student
+}
+
+extend type Mutation {
+	createUser(username: ID!, password: String!, role: String!, dni: ID): Users
+	updateUser(oldUsername: ID!, newUsername: String!, password: String!, role: String!, dni: ID!): Boolean!
+	deleteUser(username: ID!): Boolean!
+	saveStudentOnUser(username: ID!, dni: ID!): Boolean!
+	deleteStudentOnUser(username: ID!): Boolean!
+}

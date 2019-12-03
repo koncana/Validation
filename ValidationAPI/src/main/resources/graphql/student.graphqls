@@ -14,7 +14,7 @@ type Student {
 extend type Query {
 	getStudents: [Student]
 	getStudent(dni: ID!): Student		
-	getModulesFromStudent(dni: String!): [Modules]
+	getModulesFromStudent(dni: ID!): [Modules]
 }
 
 extend type Mutation {

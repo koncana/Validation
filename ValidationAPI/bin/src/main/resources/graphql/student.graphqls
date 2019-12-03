@@ -1,0 +1,26 @@
+type Student {
+	dni: ID!,
+	studentName: String!,
+	firstSurname: String!,
+	secondSurname: String,
+	dateOfBirth: String!,
+	telephone: Int!,
+	cycle: String!,
+	group: String!,
+	shift: String!,
+	course: String!
+}
+
+extend type Query {
+	getStudents: [Student]
+	getStudent(dni: ID!): Student		
+	getModulesFromStudent(dni: String!): [Modules]
+}
+
+extend type Mutation {
+	createStudent(dni: ID!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!, telephone: Int!, cycle: String!, shift: String!, group: String!, course: String!): Student!
+	updateStudent(oldDni: ID!, newDni: String!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!): Boolean!
+	deleteStudent(dni: ID!): Boolean!
+	saveModuleOnStudent(cod: ID!, dni: ID!): Boolean!
+	deleteModuleOnStudent(cod: ID!, dni: ID!): Boolean!
+}

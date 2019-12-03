@@ -16,6 +16,8 @@ import com.koncana.validation.entity.repository.IUserRepository;
 
 @Service
 public class UserServiceImpl implements IUserService {
+	
+	private Student student = null;
 
 	@Autowired
 	private IUserRepository userRepository;
@@ -127,16 +129,16 @@ public class UserServiceImpl implements IUserService {
 		});
 		return true;
 	}
+	
 
 	@Override
 	@Transactional
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public Student getStudentFromUser(final String username) {
-		Student student = null;
 		userRepository.findById(username).ifPresent((userFound) -> {
-			student.setStudent(userFound.getStudent());
+			this.student = userFound.getStudent();
 		});
-		return student;
+		return this.student;
 	}
 
 	private String passwordEncoder(String password) {

@@ -24,7 +24,69 @@ export class ValidationService {
 
   constructor(private apollo: Apollo, private graphql: GraphQLModule) { }
 
+  getAllUsers() {
+    const getUsers = gql`
+    query getUsers{
+      getUsers {
+        username
+        password
+        role
+      }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getUsers,
+      variables: {
+        username: this.graphql.Username
+      }
+    })
+      .valueChanges
+  }
 
+  getAllStudents() {
+    const getStudents = gql`
+    query getStudents{
+        getStudents { 
+          dni
+          studentName
+          firstSurname
+          secondSurname
+          dateOfBirth
+          telephone
+        }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getStudents,
+      variables: {
+        username: this.graphql.Username
+      }
+    })
+      .valueChanges
+  }
+
+  getAllValidations() {
+    const getAllValidations = gql`
+    query getAllValidations{
+      getAllValidations{
+        student{
+          dni
+        }
+        module{
+          cod
+        }
+        status
+      }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getAllValidations,
+      variables: {
+        username: this.graphql.Username
+      }
+    })
+      .valueChanges
+  }
 
   createUser(username: string, password: string, ) {
     const createUser = gql`

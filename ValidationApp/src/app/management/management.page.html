@@ -1,9 +1,129 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>management</ion-title>
+    <ion-title class="ion-text-center">Management</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-col>
+      <ion-button size="small" color="tertiary" (click)='setTrueValidation()'>Validations</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary" (click)='setTrueStudent()'>Students</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary" (click)='setTrueUsers()'>Users</ion-button>
+    </ion-col>
+  </ion-grid>
+  <div *ngIf="validationPressed">
+    <div class="bar bar-header bar-light">
+      <h4 class="ion-text-center">Validations</h4>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>Cod</p>
+        </ion-col>
+        <ion-col>
+          <p>DNI</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngFor="let validation of validations">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{validation.module.cod}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{validation.student.dni}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="modifyValidateModule(validation.module.cod)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="removeValidate(validation.module.cod, validation.student.dni)" slot="end">
+              </ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+  <div *ngIf="studentPressed">
+    <div class="bar bar-header bar-light">
+      <h4 class="ion-text-center">Students</h4>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>DNI</p>
+        </ion-col>
+        <ion-col>
+          <p>Student Name</p>
+        </ion-col>
+        <ion-col>
+          <p>First Surname</p>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngFor="let student of students">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{student.dni}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{student.studentName}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{student.firstSurname}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="modifyStudent(student.dni)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="removeStudent(student.dni)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+  <div *ngIf="userPressed">
+    <div class="bar bar-header bar-light">
+      <h4 class="ion-text-center">Users</h4>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>Username</p>
+        </ion-col>
+        <ion-col>
+          <p>Role</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngFor="let user of users">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{user.username}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{user.role}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="modifyUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="removeUser(user.username)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
 </ion-content>
