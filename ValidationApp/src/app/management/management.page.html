@@ -17,6 +17,10 @@
     </ion-col>
   </ion-grid>
   <div *ngIf="validationPressed">
+    <ion-item lines="none">
+      <ion-input type="text" placeholder="Student dni"></ion-input>
+      <ion-icon name="search" (click)="getValidation()" slot="end"></ion-icon>
+    </ion-item>
     <div class="bar bar-header bar-light">
       <h4 class="ion-text-center">Validations</h4>
     </div>
@@ -28,6 +32,7 @@
         <ion-col>
           <p>DNI</p>
         </ion-col>
+        <ion-col>Status</ion-col>
         <ion-col></ion-col>
       </ion-row>
     </ion-grid>
@@ -41,10 +46,16 @@
             <p>{{validation.student.dni}}</p>
           </ion-col>
           <ion-col>
+            <p>{{validation.status}}</p>
+          </ion-col>
+          <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyValidateModule(validation.module.cod)" slot="end"></ion-icon>
-              <ion-icon name="trash" (click)="removeValidate(validation.module.cod, validation.student.dni)" slot="end">
+              <ion-icon name="information-circle-outline" (click)="enterValidation(validation.student.dni)" slot="end">
               </ion-icon>
+              <ion-icon name="cog" (click)="modifyValidation(validation.module.cod, validation.student.dni)" slot="end">
+              </ion-icon>
+              <!-- <ion-icon name="trash" (click)="removeValidate(validation.module.cod, validation.student.dni)" slot="end">
+              </ion-icon> -->
             </ion-item>
           </ion-col>
         </ion-row>
@@ -52,6 +63,31 @@
     </ion-list>
   </div>
   <div *ngIf="studentPressed">
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="dni" type="text" placeholder="Student dni"></ion-input>
+      <ion-icon name="search" (click)="getStudent()" slot="end"></ion-icon>
+    </ion-item>
+    <div *ngIf="studentSearched">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{student.dni}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{student.studentName}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{student.firstSurname}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="enterStudent(student)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="deleteStudent(student.dni)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
     <div class="bar bar-header bar-light">
       <h4 class="ion-text-center">Students</h4>
     </div>
@@ -66,7 +102,6 @@
         <ion-col>
           <p>First Surname</p>
         </ion-col>
-        <ion-col></ion-col>
         <ion-col></ion-col>
       </ion-row>
     </ion-grid>
@@ -84,8 +119,8 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyStudent(student.dni)" slot="end"></ion-icon>
-              <ion-icon name="trash" (click)="removeStudent(student.dni)" slot="end"></ion-icon>
+              <ion-icon name="cog" (click)="enterStudent(student)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="deleteStudent(student.dni)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -93,6 +128,28 @@
     </ion-list>
   </div>
   <div *ngIf="userPressed">
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="username" type="text" placeholder="Username"></ion-input>
+      <ion-icon name="search" (click)="getUser()" slot="end"></ion-icon>
+    </ion-item>
+    <div *ngIf="userSearched">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{user.username}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{user.role}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="enterUser(user)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="deleteUser(user.username)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
     <div class="bar bar-header bar-light">
       <h4 class="ion-text-center">Users</h4>
     </div>
@@ -118,8 +175,8 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyUser(user.username)" slot="end"></ion-icon>
-              <ion-icon name="trash" (click)="removeUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="cog" (click)="enterUser(user)" slot="end"></ion-icon>
+              <ion-icon name="trash" (click)="deleteUser(user.username)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>

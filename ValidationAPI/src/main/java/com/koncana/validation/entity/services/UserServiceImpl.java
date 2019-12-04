@@ -89,7 +89,7 @@ public class UserServiceImpl implements IUserService {
 				user.setPassword(passwordEncoder(password));
 			}
 			if (role.isEmpty()) {
-				user.setRole(oldRole);
+				user.setOldRole(oldRole);
 			} else {
 				user.setRole(role);
 			}

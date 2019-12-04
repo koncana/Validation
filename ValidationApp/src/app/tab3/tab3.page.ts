@@ -27,7 +27,7 @@ export class Tab3Page {
 
   async updateUsername() {
     let alert = await this.alertController.create({
-      header: 'Prompt!',
+      header: 'New Username',
       inputs: [
         {
           name: 'username',
@@ -46,7 +46,9 @@ export class Tab3Page {
           text: 'Ok',
           handler: data => {
             this.api.updateUser(data.username).subscribe(result => {
-              this.loadUser();
+              this.graphql.Username = data.username;
+              this.graphql.setApollos();
+              this.logout();
             });
           }
         }
@@ -56,7 +58,7 @@ export class Tab3Page {
   }
 
   async loadUser() {
-    this.api.getUser().subscribe(result => {
+    this.api.getCurrentUser().subscribe(result => {
       this.graphql.user = result.data.getUser;
       this.user = result.data.getUser;
     });
@@ -64,11 +66,5 @@ export class Tab3Page {
 
   async logout() {
     this.router.navigate(['login']);
-    // this.tabsPage.setIsAdmin(false);
   }
-
-  // async getAllUser() {
-  //   this.user = this.api.getUser();
-  // }
-
 }

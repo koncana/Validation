@@ -13,7 +13,23 @@ const routes: Routes = [
   {
     path: 'options',
     loadChildren: () => import('./options/options.module').then( m => m.OptionsPageModule)
-   }
+   },  {
+    path: 'validation-information',
+    loadChildren: () => import('./validation-information/validation-information.module').then( m => m.ValidationInformationPageModule)
+  },
+  {
+    path: 'student-information',
+    loadChildren: () => import('./student-information/student-information.module').then( m => m.StudentInformationPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'student-register',
+    loadChildren: () => import('./student-register/student-register.module').then( m => m.StudentRegisterPageModule)
+  }
+
   // {
   //   path: 'management',
   //   loadChildren: () => import('./management/management.module').then( m => m.ManagementPageModule)

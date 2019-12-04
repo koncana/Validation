@@ -24,6 +24,103 @@ export class ValidationService {
 
   constructor(private apollo: Apollo, private graphql: GraphQLModule) { }
 
+  getUser(username: string) {
+    const getUser = gql`
+    query getUser($username: ID!)  {
+      getUser(username: $username){
+        username,
+        password,
+        role
+      }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getUser,
+      variables: {
+        username: username
+      }
+    })
+      .valueChanges;
+  }
+
+  getStudent(dni: string) {
+    const getStudent = gql`
+    query getStudent($dni: ID!){
+      getStudent(dni: $dni) { 
+          dni
+          studentName
+          firstSurname
+          secondSurname
+          dateOfBirth
+          telephone
+          cycle
+	        shift
+	        group
+	        course
+        }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getStudent,
+      variables: {
+        dni: dni
+      }
+    })
+      .valueChanges
+  }
+
+  modifyValidation(cod: number, dni: string, status: string) {
+    const updateValidate = gql`
+    mutation updateValidate($dni: ID!, $cod: ID!, $status: String!){
+      updateValidate(dni: $dni, cod: $cod, status: $status){
+        student {
+          dni
+        }
+        module {
+          cod
+        }
+        status
+      }        
+    }
+  `;
+    return this.apollo.mutate({
+      mutation: updateValidate,
+      variables: {
+        dni: dni,
+        cod: cod,
+        status: status
+      }
+    });
+  }
+
+  removeStudent(dni: string) {
+    const deleteStudent = gql`
+    mutation deleteStudent($dni: ID!){
+      deleteStudent(dni: $dni)        
+    }
+  `;
+    return this.apollo.mutate({
+      mutation: deleteStudent,
+      variables: {
+        dni: dni
+      }
+    });
+  }
+
+  removeUser(username: string) {
+    const deleteUser = gql`
+      mutation deleteUser($username: ID!){
+        deleteUser(username: $username)        
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: deleteUser,
+      variables: {
+        username: username
+      }
+    });
+  }
+
   getAllUsers() {
     const getUsers = gql`
     query getUsers{
@@ -53,6 +150,10 @@ export class ValidationService {
           secondSurname
           dateOfBirth
           telephone
+          cycle
+	        shift
+	        group
+	        course
         }
     }
     `;
@@ -81,17 +182,15 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getAllValidations,
-      variables: {
-        username: this.graphql.Username
-      }
+      fetchPolicy: "network-only"
     })
       .valueChanges
   }
 
   createUser(username: string, password: string, ) {
     const createUser = gql`
-      mutation createUser($username: ID!, $password: String!, $role: String!, $dni: String!){
-        createUser(username: $username, password: $password, role: $role, dni: $dni){
+      mutation createUser($username1: ID!, $password: String!, $role: String!, $dni: String!){
+        createUser(username1: $username1, password: $password, role: $role, dni: $dni){
           username,
           password,
           role
@@ -101,7 +200,7 @@ export class ValidationService {
     return this.apollo.mutate<any>({
       mutation: createUser,
       variables: {
-        newUsername: username,
+        username1: username,
         password: password,
         role: "",
         dni: ""
@@ -116,7 +215,7 @@ export class ValidationService {
       }
     `;
     return this.apollo.mutate<any>({
-      mutation: updateUser,
+      mutation: updateUser,      
       variables: {
         oldUsername: this.graphql.user.username,
         newUsername: username,
@@ -192,6 +291,7 @@ export class ValidationService {
 
     return this.apollo.watchQuery<any>({
       query: getModulesFromStudent,
+      // fetchPolicy: "no-cache",
       variables: {
         dni: this.student.dni
       }
@@ -297,8 +397,7 @@ export class ValidationService {
     });
   }
 
-  getUser() {
-
+  getCurrentUser() {
     const getUser = gql`
     query getUser($username: ID!)  {
       getUser(username: $username){
@@ -310,6 +409,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getUser,
+      fetchPolicy: "no-cache",
       variables: {
         username: this.graphql.user.username
       }

@@ -66,6 +66,10 @@ public class Users implements Serializable {
 		return role;
 	}
 
+	public void setOldRole(String role) {
+		this.role = role;
+	}
+	
 	public void setRole(String role) {
 		this.role = "ROLE_" + role.toUpperCase();
 	}

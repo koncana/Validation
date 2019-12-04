@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ValidationService } from '../services/validation.service'
 import { GraphQLModule } from '../graphql/graphql.module';
 import { Modules } from '../interfaces/module';
@@ -18,7 +18,7 @@ export class Tab1Page {
 
   constructor(private api: ValidationService, private graphql: GraphQLModule, private alertController: AlertController) { }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.showContributeModules();
     this.showValidateModules();
   }
