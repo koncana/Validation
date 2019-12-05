@@ -11,7 +11,7 @@ public interface IValidateService {
 	
 	public List<Validate> getAllModulesToValidate(final Student student);
 	
-	public List<Validate> getAllValidations();
+	public List<Student> getAllValidations();
 	
 	public Validate getModuleToValidate(final Student student, final Modules module);
 
@@ -24,4 +24,6 @@ public interface IValidateService {
 	public boolean deleteValidateByStudent(final String dni);
 	
 	public boolean deleteValidateByModule(final int cod);
+	
+	public Student getValidation(final String dni);
 }

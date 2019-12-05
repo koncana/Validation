@@ -7,7 +7,8 @@ type Validate {
 extend type Query {
 	getAllModulesToValidate(dni: ID!): [Validate]
 	getModuleToValidate(dni: ID!, cod: ID!): Validate	
-	getAllValidations: [Validate]
+	getAllValidations: [Student]
+	getValidation(dni: ID!): Student
 }
 
 extend type Mutation {
@@ -16,4 +17,4 @@ extend type Mutation {
 	deleteValidate(dni: ID!, cod: ID!): Boolean!
 	deleteValidateByStudent(dni: ID!): Boolean!
 	deleteValidateByModule(cod: ID!): Boolean!
-}
+} 

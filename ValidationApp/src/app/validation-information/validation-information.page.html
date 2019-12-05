@@ -6,4 +6,87 @@
 
 <ion-content>
 
+  <p>Modules to Contribute</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <p>Code</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Name</p>
+        </ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngFor="let module of contributeModules">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{module.cod}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{module.moduleName}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <br />
+  <p>Modules to Validate</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <p>Code</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Name</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Status</p>
+        </ion-item>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngFor="let validateModule of validateModules">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.module.cod}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.module.moduleName}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <p>{{validateModule.status}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-icon name="cog" (click)="updateStatus(validateModule)" class="ion-text-right" slot="end"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-button (click)="goBack()" color="tertiary">Back</ion-button>
 </ion-content>

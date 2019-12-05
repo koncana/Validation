@@ -13,7 +13,8 @@ const routes: Routes = [
   {
     path: 'options',
     loadChildren: () => import('./options/options.module').then( m => m.OptionsPageModule)
-   },  {
+   },
+  {
     path: 'validation-information',
     loadChildren: () => import('./validation-information/validation-information.module').then( m => m.ValidationInformationPageModule)
   },

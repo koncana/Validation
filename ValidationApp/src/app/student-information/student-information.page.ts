@@ -30,8 +30,7 @@ export class StudentInformationPage {
 
   loadStudent() {
     if (this.router.getCurrentNavigation().extras.state) {
-      this.student = this.router.getCurrentNavigation().extras.state.student
-      console.log(this.router.getCurrentNavigation().extras.state.student);
+      this.student = this.router.getCurrentNavigation().extras.state.student;
     }
   }
 

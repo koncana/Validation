@@ -22,7 +22,7 @@ public class ValidateQuery implements GraphQLQueryResolver{
 		return this.validateService.getAllModulesToValidate(student);
 	}
 	
-	public List<Validate> getAllValidations() {
+	public List<Student> getAllValidations() {
 		return this.validateService.getAllValidations();
 	}
 
@@ -32,5 +32,9 @@ public class ValidateQuery implements GraphQLQueryResolver{
 		Modules module = new Modules();
 		module.setCod(cod);
 		return this.validateService.getModuleToValidate(student, module);
+	}
+	
+	public Student getValidation(final String dni) {
+		return this.validateService.getValidation(dni);
 	}
 }

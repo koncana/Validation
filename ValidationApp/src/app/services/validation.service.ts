@@ -83,7 +83,7 @@ export class ValidationService {
       }        
     }
   `;
-    return this.apollo.mutate({
+    return this.apollo.mutate<any>({
       mutation: updateValidate,
       variables: {
         dni: dni,
@@ -170,13 +170,16 @@ export class ValidationService {
     const getAllValidations = gql`
     query getAllValidations{
       getAllValidations{
-        student{
-          dni
-        }
-        module{
-          cod
-        }
-        status
+        dni,
+	      studentName,
+	      firstSurname,
+	      secondSurname,
+	      dateOfBirth,
+	      telephone,
+	      cycle,
+	      group,
+	      shift,
+	      course
       }
     }
     `;
@@ -215,7 +218,7 @@ export class ValidationService {
       }
     `;
     return this.apollo.mutate<any>({
-      mutation: updateUser,      
+      mutation: updateUser,
       variables: {
         oldUsername: this.graphql.user.username,
         newUsername: username,
@@ -254,29 +257,58 @@ export class ValidationService {
       });
   }
 
-  getAllModulesToValidate() {
-    const login = gql`
-    query {
-      getAllModulesToValidate(dni: ${this.graphql.Username}){
+  getAllModulesToValidateByDni(dni: string) {
+    const getAllModulesToValidate = gql`
+    query getAllModulesToValidate($dni: ID!){
+      getAllModulesToValidate(dni: $dni){
         student{
-          dni
+          dni,
+          studentName,
+          firstSurname,
+          secondSurname,
+          dateOfBirth,
+          telephone,
+          cycle,
+          group,
+          shift,
+          course
         }
         module{
-          cod
+          cod,
+          moduleName
         }
         status
       }
     }
     `;
-    let res;
-    this.apollo.watchQuery({
-      query: login,
+    return this.apollo.watchQuery<any>({
+      query: getAllModulesToValidate,
+      fetchPolicy: "network-only",
+      variables: {
+        dni: dni
+      }
     })
-      .valueChanges.subscribe(result => {
-        console.log(result.data);
-        res = result.data;
-      });
-    return null;
+      .valueChanges
+  }
+
+  getAllContributeModulesByDNI(dni: string) {
+    const getModulesFromStudent = gql`
+    query getModulesFromStudent($dni: ID!){
+      getModulesFromStudent(dni: $dni){
+        cod,
+        moduleName
+      }
+    }
+    `;
+
+    return this.apollo.watchQuery<any>({
+      query: getModulesFromStudent,
+      fetchPolicy: "network-only",
+      variables: {
+        dni: dni
+      }
+    })
+      .valueChanges
   }
 
   getAllContributeModules() {
@@ -291,7 +323,7 @@ export class ValidationService {
 
     return this.apollo.watchQuery<any>({
       query: getModulesFromStudent,
-      // fetchPolicy: "no-cache",
+      fetchPolicy: "network-only",
       variables: {
         dni: this.student.dni
       }
@@ -314,13 +346,13 @@ export class ValidationService {
 
     return this.apollo.watchQuery<any>({
       query: getModulesFromStudent,
+      fetchPolicy: "network-only",
       variables: {
         dni: this.student.dni
       }
     })
       .valueChanges
   }
-
 
   getAllModules() {
     const getAllModules = gql`
@@ -333,11 +365,12 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getAllModules,
+      fetchPolicy: "network-only",
     })
       .valueChanges
   }
 
-  addContributeModule(cod: string) {
+  addContributeModule(cod: number) {
     const saveModuleOnStudent = gql`
     mutation saveModuleOnStudent($dni: ID!, $cod: ID!){
       saveModuleOnStudent(dni: $dni, cod: $cod)
@@ -352,7 +385,7 @@ export class ValidationService {
     });
   }
 
-  addValidateModule(cod: string) {
+  addValidateModule(cod: number) {
     const createValidate = gql`
       mutation createValidate($dni: ID!, $cod: ID!){
         createValidate(dni: $dni, cod: $cod)
@@ -415,6 +448,33 @@ export class ValidationService {
       }
     })
       .valueChanges;
+  }
+
+  getValidation(dni: string) {
+    const getValidation = gql`
+    query getValidation($dni: ID!){
+      getValidation(dni: $dni){
+        dni,
+	      studentName,
+	      firstSurname,
+	      secondSurname,
+	      dateOfBirth,
+	      telephone,
+	      cycle,
+	      group,
+	      shift,
+	      course
+    }
+    }
+    `;
+
+    return this.apollo.watchQuery<any>({
+      query: getValidation,
+      variables: {
+        dni: dni
+      }
+    })
+      .valueChanges
   }
 }
 

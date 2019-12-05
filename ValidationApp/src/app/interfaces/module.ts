@@ -1,5 +1,5 @@
 export interface Modules {
-    cod: string;
+    cod: number;
     moduleName: string;
     status: string;
 }

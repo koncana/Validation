@@ -2,7 +2,9 @@ package com.koncana.validation.entity.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.koncana.validation.entity.models.Modules;
 import com.koncana.validation.entity.models.Validate;
@@ -17,5 +19,9 @@ public interface IValidateRepository extends CrudRepository<Validate, ValidateKe
 	
 	public Validate findByStudentAndModule(Student student, Modules module);
 	
+	@Query("SELECT DISTINCT s FROM Student s INNER JOIN Validate v ON s.dni=v.student")
+	public List<Student> findAllValidations();
 	
+	@Query("SELECT DISTINCT s FROM Student s where s.dni=dni")
+	public Student findValidation(@Param("dni") String dni);
 }

@@ -38,8 +38,8 @@ public class ValidateServiceImpl implements IValidateService {
 	@Override
 	@Transactional(readOnly = true)
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<Validate> getAllValidations() {
-		return (List<Validate>) this.validateRepository.findAll();
+	public List<Student> getAllValidations() {
+		return this.validateRepository.findAllValidations();
 	}
 
 	@Override
@@ -126,6 +126,13 @@ public class ValidateServiceImpl implements IValidateService {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public Student getValidation(final String dni) {
+		return validateRepository.findValidation(dni);
 	}
 
 }

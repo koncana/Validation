@@ -5,47 +5,110 @@
 </ion-header>
 
 <ion-content>
-  <form #form="ngForm" (ngSubmit)="register(form)">
+  <form [formGroup]="studentForm" (ngSubmit)="register()">
     <ion-grid>
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
           <div class="ion-text-center">
-            <h3>Create your Student</h3>
+            <h3>Create your account!</h3>
           </div>
           <div class="ion-padding">
-            <ion-item>
-              <ion-input name="dni" type="text" placeholder="DNI" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="studentName" type="text" placeholder="Name" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="firstSurname" type="text" placeholder="First Surname" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="secondSurname" type="text" placeholder="Second Surname" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="dateOfBirth" type="text" placeholder="Date Of Birth" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="telephone" type="text" placeholder="Telephone" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="cycle" type="text" placeholder="Cycle" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="group" type="text" placeholder="Group" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="shift" type="text" placeholder="Shift" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="course" type="text" placeholder="Course" ngModel required></ion-input>
-            </ion-item>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="DNI" formControlName="dni" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.dni.errors }"></ion-input>
+                <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
+                  <div *ngIf="f.dni.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Name" formControlName="studentName" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.studentName.errors }"></ion-input>
+                <div *ngIf="submitted && f.studentName.errors" class="invalid-feedback">
+                  <div *ngIf="f.studentName.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Frist Surname" formControlName="firstSurname" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.firstSurname.errors }"></ion-input>
+                <div *ngIf="submitted && f.firstSurname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstSurname.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Second Surname" formControlName="secondSurname" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.secondSurname.errors }"></ion-input>
+                <div *ngIf="submitted && f.secondSurname.errors" class="invalid-feedback">
+                  <div *ngIf="f.secondSurname.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Date of Birth" formControlName="dateOfBirth" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }"></ion-input>
+                <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+                  <div *ngIf="f.dateOfBirth.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Telephone" formControlName="telephone" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }"></ion-input>
+                <div *ngIf="submitted && f.telephone.errors" class="invalid-feedback">
+                  <div *ngIf="f.telephone.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Cycle" formControlName="cycle" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.cycle.errors }"></ion-input>
+                <div *ngIf="submitted && f.cycle.errors" class="invalid-feedback">
+                  <div *ngIf="f.cycle.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Group" formControlName="group" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.group.errors }"></ion-input>
+                <div *ngIf="submitted && f.group.errors" class="invalid-feedback">
+                  <div *ngIf="f.group.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Shift" formControlName="shift" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.shift.errors }"></ion-input>
+                <div *ngIf="submitted && f.shift.errors" class="invalid-feedback">
+                  <div *ngIf="f.shift.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-input type="text" placeholder="Course" formControlName="course" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.course.errors }"></ion-input>
+                <div *ngIf="submitted && f.course.errors" class="invalid-feedback">
+                  <div *ngIf="f.course.errors.required">First Name is required</div>
+                </div>
+              </ion-item>
+            </div>
           </div>
           <div class="ion-padding">
-            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block" color="tertiary">Create</ion-button>
+            <div class="form-group">
+              <ion-button class="btn btn-primary" [disabled]="!userForm.valid" type="submit" color="tertiary">Register
+              </ion-button>
+            </div>
           </div>
         </ion-col>
       </ion-row>

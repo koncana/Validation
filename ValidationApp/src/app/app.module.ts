@@ -9,11 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql/graphql.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, GraphQLModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, GraphQLModule, FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -21,4 +22,4 @@ import { GraphQLModule } from './graphql/graphql.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
