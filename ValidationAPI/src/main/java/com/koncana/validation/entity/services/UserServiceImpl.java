@@ -43,10 +43,7 @@ public class UserServiceImpl implements IUserService {
 			studentRepository.findById(dni).ifPresent((student) -> {
 				user.setStudent(student);
 			});
-
 		}
-
-		System.out.println("asdasdsadsad");
 		return this.userRepository.save(user);
 	}
 

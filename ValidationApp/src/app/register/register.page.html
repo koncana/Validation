@@ -15,31 +15,31 @@
           <div class="ion-padding">
             <div class="form-group">
               <ion-item>
-                <ion-input type="text" placeholder="Username" formControlName="username" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }"></ion-input>
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                  <div *ngIf="f.username.errors.required">First Name is required</div>
-                </div>
+                <ion-label position="floating">Username</ion-label>
+                <ion-input type="text" formControlName="username" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && userForm.username.errors }"></ion-input>
               </ion-item>
             </div>
             <div class="form-group">
               <ion-item>
-                <ion-input type="password" placeholder="Password" formControlName="password" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"></ion-input>
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                  <div *ngIf="f.password.errors.required">Password is required</div>
-                </div>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="password" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && userForm.password.errors }"></ion-input>
               </ion-item>
             </div>
             <div class="form-group">
               <ion-item>
-                <ion-input type="password" placeholder="Confirm Password" formControlName="confirmPassword"
-                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"></ion-input>
-                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                  <div *ngIf="myForm.hasError('notSame')">Passwords must match</div>
-                </div>
-              </ion-item> 
+                <ion-label position="floating">Confirm Password</ion-label>
+                <ion-input type="password" formControlName="confirmPassword" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && userForm.confirmPassword.errors }">
+                </ion-input>
+              </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="userForm.controls.confirmPassword.touched && userForm.hasError('notSame') && userForm.controls.password.valid">
+                <ion-text color="danger">
+                  <h6>*Password do not match</h6>
+                </ion-text>
+              </div>
             </div>
           </div>
           <div class="ion-padding">

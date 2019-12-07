@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { User } from '../interfaces/users';
 
 @Component({
@@ -18,12 +17,12 @@ export class RegisterPage {
     role: ""
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private toastController: ToastController) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validator: this.checkPasswords });
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
 
   ngOnInit() {
@@ -37,27 +36,14 @@ export class RegisterPage {
   }
 
   register() {
-    if (this.userForm.value['password'] !== this.userForm.value['confirmPassword']) {
-      this.presentToast("Password do not match");
-    } else {
-      console.log(this.userForm.value['username']);
-      
-      this.user.username = this.userForm.value['username'];
-      this.user.password = this.userForm.value['password'];
-      let navigationExtra: NavigationExtras = {
-        state: {
-          user: this.user
-        }
+    this.user.username = this.userForm.value['username'];
+    this.user.password = this.userForm.value['password'];
+    let navigationExtra: NavigationExtras = {
+      state: {
+        user: this.user
       }
-      this.router.navigate(['student-register'], navigationExtra)
     }
-  }
+    this.router.navigate(['student-register'], navigationExtra)
 
-  async presentToast(inputMessage: string) {
-    const toast = await this.toastController.create({
-      message: inputMessage,
-      duration: 2000
-    });
-    toast.present();
   }
 }

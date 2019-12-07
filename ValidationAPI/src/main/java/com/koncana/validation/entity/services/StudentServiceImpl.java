@@ -27,7 +27,6 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	@Transactional
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public Student createStudent(final String dni, final String studentName, final String firstSurname,
 			final String secondSurname, final String dateOfBirth, final int telephone, final String cycle, final String shift, final String group, final String course) {
 		final Student student = new Student();

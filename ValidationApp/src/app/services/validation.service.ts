@@ -9,7 +9,7 @@ import { Student } from '../interfaces/student';
 })
 export class ValidationService {
 
-  student: Student = {
+  private student: Student = {
     dni: "",
     studentName: "",
     firstSurname: "",
@@ -190,10 +190,10 @@ export class ValidationService {
       .valueChanges
   }
 
-  createUser(username: string, password: string, ) {
+  createUser(username: string, password: string, dni: string) {
     const createUser = gql`
-      mutation createUser($username1: ID!, $password: String!, $role: String!, $dni: String!){
-        createUser(username1: $username1, password: $password, role: $role, dni: $dni){
+      mutation createUser($username: ID!, $password: String!, $role: String!, $dni: ID){
+        createUser(username: $username, password: $password, role: $role, dni: $dni){
           username,
           password,
           role
@@ -203,13 +203,50 @@ export class ValidationService {
     return this.apollo.mutate<any>({
       mutation: createUser,
       variables: {
-        username1: username,
+        username: username,
         password: password,
         role: "",
-        dni: ""
+        dni: dni
       }
     });
   }
+
+  createStudent(student: Student) {
+    const createStudent = gql`
+    mutation createStudent($dni: ID!, $studentName: String!, $firstSurname: String!, $secondSurname: String,
+      $dateOfBirth: String!, $telephone: Int!, $cycle: String!, $shift: String!, $group: String!, $course: String!){
+      createStudent(dni: $dni, studentName: $studentName, firstSurname: $firstSurname, secondSurname: $secondSurname, 
+        dateOfBirth: $dateOfBirth, telephone: $telephone, cycle: $cycle, shift: $shift, group: $group, course: $course){
+        dni,
+        studentName,
+        firstSurname,
+        secondSurname,
+        dateOfBirth,
+        telephone,
+        cycle,
+        shift,
+        group,
+        course
+      }
+  }
+  `;
+    return this.apollo.mutate<any>({
+      mutation: createStudent,
+      variables: {
+        dni: student.dni,
+        studentName: student.studentName,
+        firstSurname: student.firstSurname,
+        secondSurname: student.secondSurname,
+        dateOfBirth: student.dateOfBirth,
+        telephone: student.telephone,
+        cycle: student.cycle,
+        shift: student.shift,
+        group: student.group,
+        course: student.course
+      }
+    });
+  }
+
 
   updateUser(username: string) {
     const updateUser = gql`
