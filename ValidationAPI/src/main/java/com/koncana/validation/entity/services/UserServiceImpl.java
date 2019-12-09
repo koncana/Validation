@@ -16,7 +16,7 @@ import com.koncana.validation.entity.repository.IUserRepository;
 
 @Service
 public class UserServiceImpl implements IUserService {
-	
+
 	private Student student = null;
 
 	@Autowired
@@ -71,12 +71,41 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional
+	public boolean updateUser(final String username, final String password, final String role, final String dni) {
+		userRepository.findById(username).ifPresent((user) -> {
+			if (password.isEmpty()) {
+				user.setPassword(user.getPassword());
+			} else {
+				user.setPassword(passwordEncoder(password));
+			}
+			if (role.isEmpty()) {
+				user.setOldRole(user.getRole());
+			} else {
+				user.setRole(role);
+			}
+			if (!dni.isEmpty()) {
+				studentRepository.findById(dni).ifPresent((student) -> {
+					user.setStudent(student);
+				});
+			}
+			if (dni.equals(" ")) {
+				user.setStudent(null);
+			}
+
+			userRepository.save(user);
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	public boolean updateUser(final String oldUsername, final String newUsername, final String password,
+	public boolean updateUserAll(final String oldUsername, final String newUsername, final String password,
 			final String role, final String dni) {
 		userRepository.findById(oldUsername).ifPresent((oldUser) -> {
 			String oldRole = oldUser.getRole();
 			String oldPassword = oldUser.getPassword();
+			Student oldStudent = oldUser.getStudent();
 			userRepository.deleteById(oldUsername);
 			final Users user = new Users();
 			user.setUsername(newUsername);
@@ -91,13 +120,15 @@ public class UserServiceImpl implements IUserService {
 				user.setRole(role);
 			}
 			if (dni.isEmpty()) {
-				user.setStudent(null);
+				studentRepository.findById(oldStudent.getDni()).ifPresent((student) -> {
+					user.setStudent(student);
+				});
 			} else {
 				studentRepository.findById(dni).ifPresent((student) -> {
 					user.setStudent(student);
 				});
 			}
-			this.userRepository.save(user);
+			userRepository.save(user);
 		});
 		return true;
 	}
@@ -126,7 +157,6 @@ public class UserServiceImpl implements IUserService {
 		});
 		return true;
 	}
-	
 
 	@Override
 	@Transactional

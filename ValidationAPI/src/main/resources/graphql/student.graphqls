@@ -19,7 +19,8 @@ extend type Query {
 
 extend type Mutation {
 	createStudent(dni: ID!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!, telephone: Int!, cycle: String!, shift: String!, group: String!, course: String!): Student!
-	updateStudent(oldDni: ID!, newDni: String!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!): Boolean!
+	updateStudentAll(oldDni: ID!, newDni: String!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!, telephone: Int!, cycle: String!, shift: String!, group: String!, course: String!): Boolean!
+	updateStudent(dni: ID!, studentName: String!, firstSurname: String!, secondSurname: String, dateOfBirth: String!, telephone: Int!, cycle: String!, shift: String!, group: String!, course: String!): Boolean!
 	deleteStudent(dni: ID!): Boolean!
 	saveModuleOnStudent(cod: ID!, dni: ID!): Boolean!
 	deleteModuleOnStudent(cod: ID!, dni: ID!): Boolean!

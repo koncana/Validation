@@ -41,19 +41,6 @@ export class LoginPage implements OnInit {
   async register() {
     this.graphql.setApollosEmpty();
     this.router.navigate(['register']);
-    // this.api.createUser(this.username, this.password).subscribe(result => {
-    //   this.graphql.user = result.data.createUser;
-    //   this.password = "";
-    //   this.username = "";
-    //   this.graphql.setApollos();
-    //   if (this.graphql.user.role == "ROLE_ADMIN") {
-    //     this.router.navigate(['tabs/tab4'])
-    //   } else {
-    //     this.router.navigate(['tabs/tab2']);
-    //   }
-    // }, error => {
-    //   this.presentToast("Error");
-    // });
   }
 
   async presentToast(inputMessage: string) {

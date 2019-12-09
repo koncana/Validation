@@ -13,7 +13,7 @@ import com.koncana.validation.entity.repository.IModuleRepository;
 
 @Service
 public class ModuleServiceImpl implements IModuleService {
-	
+
 	@Autowired
 	private IModuleRepository moduleRepository;
 
@@ -30,22 +30,34 @@ public class ModuleServiceImpl implements IModuleService {
 	@Override
 	@Transactional
 	@PreAuthorize("hasRole('ADMIN')")
-	public boolean updateModule(final int oldCod, final int newCod, final String moduleName) {
+	public boolean updateModuleAll(final int oldCod, final int newCod, final String moduleName) {
 		moduleRepository.findById(oldCod).ifPresent((x) -> {
 			final Modules module = new Modules();
 			moduleRepository.deleteById(oldCod);
 			module.setCod(newCod);
 			module.setModuleName(moduleName);
-			this.moduleRepository.save(module);
+			moduleRepository.save(module);
 		});
 		return true;
 	}
 
 	@Override
 	@Transactional
-	@PreAuthorize("hasRole('ADMIN', 'USER')")
-	public void deleteModule(int cod) {
-		this.moduleRepository.deleteById(cod);
+	@PreAuthorize("hasRole('ADMIN')")
+	public boolean updateModule(final int cod, final String moduleName) {
+		moduleRepository.findById(cod).ifPresent((module) -> {
+			module.setModuleName(moduleName);
+			moduleRepository.save(module);
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean deleteModule(int cod) {
+		moduleRepository.deleteById(cod);
+		return true;
 	}
 
 	@Override

@@ -44,6 +44,11 @@ export class RegisterPage {
       }
     }
     this.router.navigate(['student-register'], navigationExtra)
+  }
 
+  goBack(){
+    this.user.username = "",
+    this.user.password = "",
+    this.router.navigate(['login']);
   }
 }

@@ -11,5 +11,6 @@ extend type Query {
 extend type Mutation {
 	createModule(cod: ID!, moduleName: String!): Modules
 	deleteModule(cod: ID!): Boolean!
-	updateModule(oldCod: ID!, newCod: Int!, moduleName: String!): Boolean!
+	updateModuleAll(oldCod: ID!, newCod: Int!, moduleName: String!): Boolean!
+	updateModule(cod: ID!, moduleName: String!): Boolean!
 }

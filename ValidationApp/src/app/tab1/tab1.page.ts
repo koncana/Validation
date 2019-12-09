@@ -12,9 +12,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  contributeModules: Array<Modules>;
-  validateModules: Array<ValidateModule>;
-  allModules: Array<Modules>;
+  private contributeModules: Array<Modules>;
+  private validateModules: Array<ValidateModule>;
+  private allModules: Array<Modules>;
 
   constructor(private api: ValidationService, private graphql: GraphQLModule, private alertController: AlertController) { }
 
@@ -23,13 +23,13 @@ export class Tab1Page {
     this.showValidateModules();
   }
 
-  showContributeModules() {
+  async showContributeModules() {
     this.api.getAllContributeModules().subscribe(result => {
       this.contributeModules = result.data.getModulesFromStudent;
     });
   }
 
-  showValidateModules() {
+  async showValidateModules() {
     this.api.getAllValidateModules().subscribe(result => {
       this.validateModules = result.data.getAllModulesToValidate;
     });
@@ -43,7 +43,7 @@ export class Tab1Page {
 
   async addContributeModule() {
     await this.getAllModules();
-    
+
     let radio_options = [];
     for (let module of this.allModules) {
       radio_options.push({
@@ -54,7 +54,7 @@ export class Tab1Page {
       });
     }
     let alert = await this.alertController.create({
-      header: 'Checkbox',
+      header: 'Modules',
       inputs: radio_options,
       buttons: [
         {
@@ -62,7 +62,6 @@ export class Tab1Page {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
@@ -79,7 +78,7 @@ export class Tab1Page {
 
   async addValidateModules() {
     await this.getAllModules();
-    
+
     let radio_options = [];
     for (let module of this.allModules) {
       radio_options.push({
@@ -90,7 +89,7 @@ export class Tab1Page {
       });
     }
     let alert = await this.alertController.create({
-      header: 'Checkbox',
+      header: 'Modules',
       inputs: radio_options,
       buttons: [
         {
@@ -98,7 +97,6 @@ export class Tab1Page {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
@@ -113,13 +111,13 @@ export class Tab1Page {
     await alert.present();
   }
 
-  async removeContributeModule(cod: string){
+  async removeContributeModule(cod: string) {
     this.api.removeContributeModule(cod).subscribe(result => {
       this.showContributeModules();
     });
   }
 
-  async removeValidateModule(cod: string){
+  async removeValidateModule(cod: string) {
     this.api.removeValidateModule(cod).subscribe(result => {
       this.showValidateModules();
     });

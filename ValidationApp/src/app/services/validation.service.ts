@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { GraphQLModule } from '../graphql/graphql.module';
 import { Student } from '../interfaces/student';
+import { Modules } from '../interfaces/module';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,61 @@ export class ValidationService {
 
   constructor(private apollo: Apollo, private graphql: GraphQLModule) { }
 
+  get Student() {
+    return this.student;
+  }
+
+  updateStudent(newStudent: Student) {
+    const updateStudent = gql`
+      mutation updateStudent($dni: ID!, $studentName: String!, $firstSurname: String!, $secondSurname: String, 
+        $dateOfBirth: String!, $telephone: Int!, $cycle: String!, $shift: String!, $group: String!, $course: String!){
+        updateStudent(dni: $dni, studentName: $studentName, firstSurname: $firstSurname, secondSurname: $secondSurname, 
+          dateOfBirth: $dateOfBirth, telephone: $telephone, cycle: $cycle, shift: $shift, group: $group, course: $course)
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: updateStudent,
+      variables: {
+        dni: newStudent.dni,
+        studentName: newStudent.studentName,
+        firstSurname: newStudent.firstSurname,
+        secondSurname: newStudent.secondSurname,
+        dateOfBirth: newStudent.dateOfBirth,
+        telephone: newStudent.telephone,
+        cycle: newStudent.cycle,
+        shift: newStudent.shift,
+        group: newStudent.group,
+        course: newStudent.course
+      }
+    });
+  }
+
+  updateStudentAll(newStudent: Student) {
+    const updateStudent = gql`
+    mutation updateStudentAll($oldDni: ID!, $newDni: String!, $studentName: String!, $firstSurname: String!, $secondSurname: String, 
+      $dateOfBirth: String!, $telephone: Int!, $cycle: String!, $shift: String!, $group: String!, $course: String!){
+      updateStudentAll(oldDni: $oldDni, newDni: $newDni, studentName: $studentName, firstSurname: $firstSurname, secondSurname: $secondSurname, 
+        dateOfBirth: $dateOfBirth, telephone: $telephone, cycle: $cycle, shift: $shift, group: $group, course: $course)
+    }
+  `;
+    return this.apollo.mutate({
+      mutation: updateStudent,
+      variables: {
+        oldDni: this.student.dni,
+        newDni: newStudent.dni,
+        studentName: newStudent.studentName,
+        firstSurname: newStudent.firstSurname,
+        secondSurname: newStudent.secondSurname,
+        dateOfBirth: newStudent.dateOfBirth,
+        telephone: newStudent.telephone,
+        cycle: newStudent.cycle,
+        shift: newStudent.shift,
+        group: newStudent.group,
+        course: newStudent.course
+      }
+    });
+  }
+
   getUser(username: string) {
     const getUser = gql`
     query getUser($username: ID!)  {
@@ -36,6 +92,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getUser,
+      fetchPolicy: "network-only",
       variables: {
         username: username
       }
@@ -62,6 +119,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getStudent,
+      fetchPolicy: "network-only",
       variables: {
         dni: dni
       }
@@ -107,6 +165,20 @@ export class ValidationService {
     });
   }
 
+  removeCurrentUser() {
+    const deleteUser = gql`
+      mutation deleteUser($username: ID!){
+        deleteUser(username: $username)        
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: deleteUser,
+      variables: {
+        username: this.graphql.Username
+      }
+    });
+  }
+
   removeUser(username: string) {
     const deleteUser = gql`
       mutation deleteUser($username: ID!){
@@ -133,6 +205,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getUsers,
+      fetchPolicy: "network-only",
       variables: {
         username: this.graphql.Username
       }
@@ -159,6 +232,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getStudents,
+      fetchPolicy: "network-only",
       variables: {
         username: this.graphql.Username
       }
@@ -247,21 +321,106 @@ export class ValidationService {
     });
   }
 
-
-  updateUser(username: string) {
-    const updateUser = gql`
-      mutation updateUser($oldUsername: ID!, $newUsername: String!, $password: String!, $role: String!, $dni: ID!){
-        updateUser(oldUsername: $oldUsername, newUsername: $newUsername, password: $password, role: $role, dni: $dni)
+  updateUsername(username: string) {
+    const updateUserAll = gql`
+      mutation updateUserAll($oldUsername: ID!, $newUsername: String!, $password: String!, $role: String!, $dni: ID!){
+        updateUserAll(oldUsername: $oldUsername, newUsername: $newUsername, password: $password, role: $role, dni: $dni)
       }
     `;
-    return this.apollo.mutate<any>({
-      mutation: updateUser,
+    return this.apollo.mutate({
+      mutation: updateUserAll,
       variables: {
         oldUsername: this.graphql.user.username,
         newUsername: username,
         password: "",
         role: "",
         dni: ""
+      }
+    });
+  }
+
+  updatePassword(password: string) {
+    const updateUser = gql`
+      mutation updateUser($username: ID!, $password: String!, $role: String!, $dni: ID!){
+        updateUser(username: $username, password: $password, role: $role, dni: $dni)
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: updateUser,
+      variables: {
+        username: this.graphql.user.username,
+        password: password,
+        role: "",
+        dni: ""
+      }
+    });
+  }
+
+  updateUserDeleteStudent() {
+    const updateUser = gql`
+      mutation updateUser($username: ID!, $password: String!, $role: String!, $dni: ID!){
+        updateUser(username: $username, password: $password, role: $role, dni: $dni)
+      }
+    `;
+    return this.apollo.mutate<any>({
+      mutation: updateUser,
+      variables: {
+        username: this.graphql.user.username,
+        password: "",
+        role: "",
+        dni: " "
+      }
+    });
+  }
+
+  updateRole(username: string, role: string) {
+    const updateUser = gql`
+    mutation updateUser($oldUsername: ID!, $newUsername: String!, $password: String!, $role: String!, $dni: ID!){
+      updateUser(oldUsername: $oldUsername, newUsername: $newUsername, password: $password, role: $role, dni: $dni)
+    }
+  `;
+    return this.apollo.mutate<any>({
+      mutation: updateUser,
+      variables: {
+        oldUsername: username,
+        newUsername: username,
+        password: "",
+        role: role,
+        dni: ""
+      }
+    });
+  }
+
+  updateStudentFromUser(newDni: string) {
+    const updateUser = gql`
+      mutation updateUser($username: ID!, $password: String!, $role: String!, $dni: ID!){
+        updateUser(username: $username, password: $password, role: $role, dni: $dni)
+      }
+    `;
+    return this.apollo.mutate<any>({
+      mutation: updateUser,
+      variables: {
+        username: this.graphql.user.username,
+        password: "",
+        role: "",
+        dni: newDni
+      }
+    });
+  }
+
+  updateStudentFromUserByUsername(newDni: string, username: string) {
+    const updateUser = gql`
+      mutation updateUser($username: ID!, $password: String!, $role: String!, $dni: ID!){
+        updateUser(username: $username, password: $password, role: $role, dni: $dni)
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: updateUser,
+      variables: {
+        username: username,
+        password: "",
+        role: "",
+        dni: newDni
       }
     });
   }
@@ -285,6 +444,7 @@ export class ValidationService {
     `;
     this.apollo.watchQuery<any>({
       query: getStudentFromUser,
+      fetchPolicy: "network-only",
       variables: {
         username: this.graphql.Username
       }
@@ -292,6 +452,33 @@ export class ValidationService {
       .valueChanges.subscribe(result => {
         this.student = result.data.getStudentFromUser;
       });
+  }
+
+  getStudentFromUserByUsername(username: string) {
+    const getStudentFromUser = gql`
+    query getStudentFromUser($username: ID! ){
+      getStudentFromUser(username: $username){
+        dni
+	      studentName
+	      firstSurname
+	      secondSurname
+	      dateOfBirth
+	      telephone
+	      cycle
+	      group
+	      shift
+	      course
+      }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getStudentFromUser,
+      fetchPolicy: "network-only",
+      variables: {
+        username: username
+      }
+    })
+      .valueChanges;
   }
 
   getAllModulesToValidateByDni(dni: string) {
@@ -407,6 +594,43 @@ export class ValidationService {
       .valueChanges
   }
 
+  addModule(cod: number, moduleName: string) {
+    const createModule = gql`
+    mutation createModule($cod: ID!, $moduleName: String!){
+      createModule(cod: $cod, moduleName: $moduleName){
+        cod,
+        moduleName
+      }
+    }
+  `;
+    return this.apollo.mutate<any>({
+      mutation: createModule,
+      variables: {
+        moduleName: moduleName,
+        cod: cod,
+      }
+    });
+  }
+
+  getModule(cod: number) {
+    const getModule = gql`
+    query getModule($cod: ID!) {
+      getModule(cod: $cod) { 
+        cod,
+        moduleName
+      }
+    }
+    `;
+    return this.apollo.watchQuery<any>({
+      query: getModule,
+      fetchPolicy: "network-only",
+      variables: {
+        cod: cod
+      }
+    })
+      .valueChanges
+  }
+
   addContributeModule(cod: number) {
     const saveModuleOnStudent = gql`
     mutation saveModuleOnStudent($dni: ID!, $cod: ID!){
@@ -418,6 +642,35 @@ export class ValidationService {
       variables: {
         dni: this.student.dni,
         cod: cod,
+      }
+    });
+  }
+
+  deleteModule(cod: number){
+    const deleteModule = gql`
+    mutation deleteModule($cod: ID!){
+      deleteModule(cod: $cod)
+    }
+  `;
+    return this.apollo.mutate({
+      mutation: deleteModule,
+      variables: {
+        cod: cod
+      }
+    });
+  }
+
+  updateModule(cod: number, moduleName: string){
+    const updateModule = gql`
+    mutation updateModule($cod: ID!, $moduleName: String!){
+      updateModule(cod: $cod, moduleName: $moduleName)
+    }
+  `;
+    return this.apollo.mutate({
+      mutation: updateModule,
+      variables: {
+        cod: cod,
+        moduleName: moduleName
       }
     });
   }
@@ -479,7 +732,7 @@ export class ValidationService {
     `;
     return this.apollo.watchQuery<any>({
       query: getUser,
-      fetchPolicy: "no-cache",
+      fetchPolicy: "network-only",
       variables: {
         username: this.graphql.user.username
       }
@@ -507,6 +760,7 @@ export class ValidationService {
 
     return this.apollo.watchQuery<any>({
       query: getValidation,
+      fetchPolicy: "network-only",
       variables: {
         dni: dni
       }

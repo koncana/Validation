@@ -15,6 +15,9 @@
     <ion-col>
       <ion-button size="small" color="tertiary" (click)='setTrueUsers()'>Users</ion-button>
     </ion-col>
+    <ion-col>
+      <ion-button size="small" color="tertiary" (click)='setTrueModules()'>Modules</ion-button>
+    </ion-col>
   </ion-grid>
   <div *ngIf="validationPressed">
     <ion-item lines="none">
@@ -131,7 +134,7 @@
   </div>
   <div *ngIf="userPressed">
     <ion-item lines="none">
-      <ion-input [(ngModel)]="username" type="text" placeholder="Username"></ion-input>
+      <ion-input [(ngModel)]="username" type="number" placeholder="Username"></ion-input>
       <ion-icon name="search" (click)="getUser()" slot="end"></ion-icon>
     </ion-item>
     <div *ngIf="userSearched">
@@ -146,7 +149,7 @@
           <ion-col>
             <ion-item lines="none">
               <ion-icon name="contact" (click)="enterUser(user)" slot="end"></ion-icon>
-              <ion-icon name="trash" (click)="deleteUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="trash" color="danger" (click)="deleteUser(user.username)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -177,8 +180,69 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="enterUser(user)" slot="end"></ion-icon>
-              <ion-icon name="trash" (click)="deleteUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="cog" (click)="modifyUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="trash" color="danger" (click)="deleteUser(user.username)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+  <div *ngIf="modulesPressed">
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="addCod" type="number" placeholder="Code"></ion-input>
+      <ion-input [(ngModel)]="moduleName" type="text" placeholder="Name"></ion-input>
+      <ion-icon name="add" (click)="addModule()" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="cod" type="number" placeholder="Code"></ion-input>
+      <ion-icon name="search" (click)="getModule()" slot="end"></ion-icon>
+    </ion-item>
+    <div *ngIf="moduleSearched">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{module.cod}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{module.moduleName}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
+              <ion-icon name="trash" color="danger" (click)="deleteModule(module.cod)" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="bar bar-header bar-light">
+      <h4 class="ion-text-center">Modules</h4>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>Code</p>
+        </ion-col>
+        <ion-col>
+          <p>Name</p>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngFor="let module of modules">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>{{module.cod}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{module.moduleName}}</p>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon name="cog" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
+              <ion-icon name="trash" color="danger" (click)="deleteModule(module.cod)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>

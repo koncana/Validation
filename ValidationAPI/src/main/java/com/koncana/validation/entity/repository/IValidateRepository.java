@@ -19,9 +19,9 @@ public interface IValidateRepository extends CrudRepository<Validate, ValidateKe
 	
 	public Validate findByStudentAndModule(Student student, Modules module);
 	
-	@Query("SELECT DISTINCT s FROM Student s INNER JOIN Validate v ON s.dni=v.student")
+	@Query("SELECT DISTINCT s FROM Student s INNER JOIN Validate v ON s.dni=v.student WHERE v.status!='validated'")
 	public List<Student> findAllValidations();
 	
-	@Query("SELECT DISTINCT s FROM Student s where s.dni=dni")
+	@Query("SELECT DISTINCT s FROM Student s INNER JOIN Validate v ON s.dni=v.student WHERE s.dni=dni")
 	public Student findValidation(@Param("dni") String dni);
 }

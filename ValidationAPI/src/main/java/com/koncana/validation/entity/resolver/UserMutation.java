@@ -21,8 +21,12 @@ public class UserMutation implements GraphQLMutationResolver {
 		return this.userService.deleteUser(username);
 	}
 
-	public boolean updateUser(final String oldUsername, final String newUsername, final String password, final String role, final String dni) {
-		return this.userService.updateUser(oldUsername, newUsername,password, role, dni);
+	public boolean updateUserAll(final String oldUsername, final String newUsername, final String password, final String role, final String dni) {
+		return this.userService.updateUserAll(oldUsername, newUsername,password, role, dni);
+	}
+	
+	public boolean updateUser(final String username, final String password, final String role, final String dni) {
+		return this.userService.updateUser(username,password, role, dni);
 	}
 
 	public boolean saveStudentOnUser(final String username, final String dni) {

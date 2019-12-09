@@ -9,42 +9,43 @@
 <ion-content>
   <ion-item>
     <ion-label>DNI:</ion-label>
-    <ion-input [(ngModel)]="student.dni" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.dni" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Name:</ion-label>
-    <ion-input [(ngModel)]="student.studentName" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.studentName" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>First Surname:</ion-label>
-    <ion-input [(ngModel)]="student.firstSurname" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.firstSurname" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Second Surname:</ion-label>
-    <ion-input [(ngModel)]="student.secondSurname" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.secondSurname" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Date of Birth:</ion-label>
-    <ion-datetime [(ngModel)]="student.dateOfBirth" displayFormat="YYYY-MM-DD" readOnly></ion-datetime>
+    <ion-datetime [(ngModel)]="student.dateOfBirth" displayFormat="YYYY-MM-DD"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Telephone:</ion-label>
-    <ion-input [(ngModel)]="student.telephone" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.telephone" type="number" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Cycle:</ion-label>
-    <ion-input [(ngModel)]="student.cycle" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.cycle" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Group:</ion-label>
-    <ion-input [(ngModel)]="student.group" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.group" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Shift:</ion-label>
-    <ion-input [(ngModel)]="student.shift" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.shift" type="text" class="ion-text-right"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Course:</ion-label>
-    <ion-input [(ngModel)]="student.course" readOnly class="ion-text-right"></ion-input>
+    <ion-input [(ngModel)]="student.course" type="text" class="ion-text-right"></ion-input>
   </ion-item>
+  <ion-button (click)="modifyStudent()" color="tertiary">Save</ion-button>
 </ion-content>

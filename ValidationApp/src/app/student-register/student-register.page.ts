@@ -53,9 +53,21 @@ export class StudentRegisterPage {
   async loadData() {
     if (this.router.getCurrentNavigation().extras.state) {
       this.user = this.router.getCurrentNavigation().extras.state.user;
-      console.log(this.user);
-      console.log(this.router.getCurrentNavigation().extras.state.user);
     }
+  }
+
+  goBack(){
+    this.student.dni = "";
+    this.student.studentName = "";
+    this.student.firstSurname = "";
+    this.student.secondSurname = "";
+    this.student.dateOfBirth = "";
+    this.student.telephone = "";
+    this.student.cycle = "";
+    this.student.group = "";
+    this.student.shift = "";
+    this.student.course = "";
+    this.router.navigate(['register']);
   }
 
   register() {

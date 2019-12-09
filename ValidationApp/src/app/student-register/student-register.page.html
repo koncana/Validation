@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Student Register</ion-title>
+    <ion-title class="ion-text-center">Student Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,9 +9,6 @@
     <ion-grid>
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
-          <div class="ion-text-center">
-            <h3>Create your student!</h3>
-          </div>
           <div class="ion-padding">
             <div class="form-group">
               <ion-item>
@@ -19,6 +16,12 @@
                 <ion-input type="text" formControlName="dni" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.dni.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.dni.valid  && (studentForm.controls.dni.dirty)">
+                <ion-text color="danger">
+                  <h6>*DNI format does not match (5 numbers and a capital letter)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -26,6 +29,12 @@
                 <ion-input type="text" formControlName="studentName" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.studentName.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.studentName.valid  && (studentForm.controls.studentName.dirty)">
+                <ion-text color="danger">
+                  <h6>*Name format does not match (only letter)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -33,6 +42,12 @@
                 <ion-input type="text" formControlName="firstSurname" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.firstSurname.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.firstSurname.valid  && (studentForm.controls.firstSurname.dirty)">
+                <ion-text color="danger">
+                  <h6>*Surname format does not match (only letters)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -40,6 +55,12 @@
                 <ion-input type="text" formControlName="secondSurname" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.secondSurname.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.secondSurname.valid  && (studentForm.controls.secondSurname.dirty)">
+                <ion-text color="danger">
+                  <h6>*Surname format does not match (only letters)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -47,6 +68,12 @@
                 <ion-input type="text" formControlName="dateOfBirth" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.dateOfBirth.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.dateOfBirth.valid  && (studentForm.controls.dateOfBirth.dirty)">
+                <ion-text color="danger">
+                  <h6>*Date format does not match (YYYY-MM-DD)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -54,6 +81,12 @@
                 <ion-input type="text" formControlName="telephone" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.telephone.valid  && (studentForm.controls.telephone.dirty)">
+                <ion-text color="danger">
+                  <h6>*Telephone format does not match (9 numbers and prefix If needed)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -61,6 +94,12 @@
                 <ion-input type="text" formControlName="cycle" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.cycle.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.cycle.valid  && (studentForm.controls.cycle.dirty)">
+                <ion-text color="danger">
+                  <h6>*Cycle format does not match (only letters)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -68,6 +107,12 @@
                 <ion-input type="text" formControlName="group" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.group.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.group.valid  && (studentForm.controls.group.dirty)">
+                <ion-text color="danger">
+                  <h6>*Group format does not match (only letters)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -75,6 +120,12 @@
                 <ion-input type="text" formControlName="shift" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.shift.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.shift.valid  && (studentForm.controls.shift.dirty)">
+                <ion-text color="danger">
+                  <h6>*Shift format does not match (only letters)</h6>
+                </ion-text>
+              </div>
             </div>
             <div class="form-group">
               <ion-item>
@@ -82,6 +133,12 @@
                 <ion-input type="text" formControlName="course" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && studentForm.course.errors }"></ion-input>
               </ion-item>
+              <div lines="none" class='form-text error'
+                *ngIf="!studentForm.controls.course.valid  && (studentForm.controls.course.dirty)">
+                <ion-text color="danger">
+                  <h6>*Course format does not match (YYYY-YYYY)</h6>
+                </ion-text>
+              </div>
             </div>
           </div>
           <div class="ion-padding">
@@ -89,6 +146,7 @@
               <ion-button class="btn btn-primary" [disabled]="!studentForm.valid" type="submit" color="tertiary">
                 Register
               </ion-button>
+              <ion-button class="btn btn-primary" color="tertiary" (click)="goBack()">Back</ion-button>
             </div>
           </div>
         </ion-col>

@@ -9,9 +9,6 @@
     <ion-grid>
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
-          <div class="ion-text-center">
-            <h3>Create your account!</h3>
-          </div>
           <div class="ion-padding">
             <div class="form-group">
               <ion-item>
@@ -44,8 +41,10 @@
           </div>
           <div class="ion-padding">
             <div class="form-group">
-              <ion-button class="btn btn-primary" [disabled]="!userForm.valid" type="submit" color="tertiary">Register
+              <ion-button class="btn btn-primary" [disabled]="!userForm.valid" type="submit" color="tertiary">Set
+                Student
               </ion-button>
+              <ion-button class="btn btn-primary" color="tertiary" (click)="goBack()">Cancel</ion-button>
             </div>
           </div>
         </ion-col>

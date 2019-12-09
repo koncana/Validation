@@ -28,7 +28,8 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	@Transactional
 	public Student createStudent(final String dni, final String studentName, final String firstSurname,
-			final String secondSurname, final String dateOfBirth, final int telephone, final String cycle, final String shift, final String group, final String course) {
+			final String secondSurname, final String dateOfBirth, final int telephone, final String cycle,
+			final String shift, final String group, final String course) {
 		final Student student = new Student();
 		student.setDni(dni);
 		student.setStudentName(studentName);
@@ -51,22 +52,135 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	@Transactional
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	public boolean updateStudent(final String oldDni, final String newDni, final String studentName,
-			final String firstSurname, final String secondSurname, final String dateOfBirth) {
+	public boolean updateStudentAll(final String oldDni, final String newDni, final String studentName,
+			final String firstSurname, final String secondSurname, final String dateOfBirth, final int telephone,
+			final String cycle, final String shift, final String group, final String course) {
 		studentRepository.findById(oldDni).ifPresent((x) -> {
-			final Student student = new Student();
+			String oldStudentName = x.getStudentName();
+			String oldFirstSurname = x.getFirstSurname();
+			String oldSecondSurname = x.getSecondSurname();
+			Date oldDateOfBirth = x.getDateOfBirth();
+			int oldTelephone = x.getTelephone();
+			String oldCycle = x.getCycle();
+			String oldShift = x.getGroup();
+			String oldGroup = x.getGroup();
+			String oldCourse = x.getCourse();
 			studentRepository.deleteById(oldDni);
+			final Student student = new Student();
 			student.setDni(newDni);
-			student.setStudentName(studentName);
-			student.setFirstSurname(firstSurname);
-			student.setSecondSurname(secondSurname);
-			try {
-				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
-				student.setDateOfBirth(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
+			if (studentName.isEmpty()) {
+				student.setStudentName(oldStudentName);
+			} else {
+				student.setStudentName(studentName);
 			}
-			this.studentRepository.save(student);
+			if (firstSurname.isEmpty()) {
+				student.setFirstSurname(oldFirstSurname);
+			} else {
+				student.setFirstSurname(firstSurname);
+			}
+			if (secondSurname.isEmpty()) {
+				student.setSecondSurname(oldSecondSurname);
+			} else {
+				student.setSecondSurname(secondSurname);
+			}
+			if (dateOfBirth.isEmpty()) {
+				student.setDateOfBirth(oldDateOfBirth);
+			} else {
+				try {
+					Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+					student.setDateOfBirth(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (telephone == 0) {
+				student.setTelephone(oldTelephone);
+			} else {
+				student.setTelephone(telephone);
+			}
+			if (cycle.isEmpty()) {
+				student.setCycle(oldCycle);
+			} else {
+				student.setCycle(cycle);
+			}
+			if (shift.isEmpty()) {
+				student.setShift(oldShift);
+			} else {
+				student.setShift(shift);
+			}
+			if (group.isEmpty()) {
+				student.setGroup(oldGroup);
+			} else {
+				student.setGroup(group);
+			}
+			if (course.isEmpty()) {
+				student.setCourse(oldCourse);
+			} else {
+				student.setCourse(course);
+			}
+			studentRepository.save(student);
+		});
+		return true;
+	}
+
+	@Override
+	@Transactional
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	public boolean updateStudent(final String dni, final String studentName, final String firstSurname,
+			final String secondSurname, final String dateOfBirth, final int telephone, final String cycle,
+			final String shift, final String group, final String course) {
+		studentRepository.findById(dni).ifPresent((student) -> {
+			if (studentName.isEmpty()) {
+				student.setStudentName(student.getStudentName());
+			} else {
+				student.setStudentName(studentName);
+			}
+			if (firstSurname.isEmpty()) {
+				student.setFirstSurname(student.getFirstSurname());
+			} else {
+				student.setFirstSurname(firstSurname);
+			}
+			if (secondSurname.isEmpty()) {
+				student.setSecondSurname(student.getSecondSurname());
+			} else {
+				student.setSecondSurname(secondSurname);
+			}
+			if (dateOfBirth.isEmpty()) {
+				student.setDateOfBirth(student.getDateOfBirth());
+			} else {
+				try {
+					Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+					student.setDateOfBirth(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (telephone == 0) {
+				student.setTelephone(student.getTelephone());
+			} else {
+				student.setTelephone(telephone);
+			}
+			if (cycle.isEmpty()) {
+				student.setCycle(student.getCycle());
+			} else {
+				student.setCycle(cycle);
+			}
+			if (shift.isEmpty()) {
+				student.setShift(student.getShift());
+			} else {
+				student.setShift(shift);
+			}
+			if (group.isEmpty()) {
+				student.setGroup(student.getGroup());
+			} else {
+				student.setGroup(group);
+			}
+			if (course.isEmpty()) {
+				student.setCourse(student.getCourse());
+			} else {
+				student.setCourse(course);
+			}
+			studentRepository.save(student);
 		});
 		return true;
 	}
@@ -122,6 +236,6 @@ public class StudentServiceImpl implements IStudentService {
 				studentRepository.save(studentFound);
 			});
 		});
-		return true;	
+		return true;
 	}
 }

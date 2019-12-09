@@ -13,8 +13,10 @@ extend type Query {
 
 extend type Mutation {
 	createUser(username: ID!, password: String!, role: String!, dni: ID): Users
-	updateUser(oldUsername: ID!, newUsername: String!, password: String!, role: String!, dni: ID!): Boolean!
+	updateUserAll(oldUsername: ID!, newUsername: String!, password: String!, role: String!, dni: ID!): Boolean!
+	updateUser(username: ID!, password: String!, role: String!, dni: ID!): Boolean!
 	deleteUser(username: ID!): Boolean!
 	saveStudentOnUser(username: ID!, dni: ID!): Boolean!
 	deleteStudentOnUser(username: ID!): Boolean!
 }
+ 

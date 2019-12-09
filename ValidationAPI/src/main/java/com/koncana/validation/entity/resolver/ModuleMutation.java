@@ -17,13 +17,16 @@ public class ModuleMutation implements GraphQLMutationResolver {
 		return moduleService.createModule(cod, moduleName);
 	}
 	
-	public boolean updateModule(final int oldCod, final int newCod, final String moduleName) {
-		return moduleService.updateModule(oldCod, newCod, moduleName);
+	public boolean updateModuleAll(final int oldCod, final int newCod, final String moduleName) {
+		return moduleService.updateModuleAll(oldCod, newCod, moduleName);
+	}
+	
+	public boolean updateModule(final int cod, final String moduleName) {
+		return moduleService.updateModule(cod, moduleName);
 	}
 
 	public boolean deleteModule(final int cod) {
-		moduleService.deleteModule(cod);
-		return true;
+		return moduleService.deleteModule(cod);
 	}
 	
 }
