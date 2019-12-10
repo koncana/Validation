@@ -3,6 +3,8 @@ import { ValidationService } from '../services/validation.service'
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GraphQLModule } from '../graphql/graphql.module';
+import { Storage } from '@ionic/storage';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,29 @@ export class LoginPage implements OnInit {
 
   private username: string;
   private password: string;
+  private imageSrc: string;
+  private base64Image: string = null;
 
-  constructor(private api: ValidationService, private router: Router, private graphql: GraphQLModule, private toastController: ToastController) { }
+  constructor(private options: CameraOptions, private camera: Camera, private storage: Storage, private api: ValidationService, private router: Router, private graphql: GraphQLModule, private toastController: ToastController) { }
 
   ngOnInit() {
+  }
+
+  getPicture(){
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      quality: 100
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      this.base64Image = `data:image/jpeg;base64,${imageData}`;
+    }, (err) => {
+      // Handle error
+    }); 
   }
 
   login() {
