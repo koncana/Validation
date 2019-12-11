@@ -62,7 +62,7 @@ export class Tab3Page {
 
   async loadUser() {
     this.api.getCurrentUser().subscribe(result => {
-      this.graphql.user = result.data.getUser;
+      this.graphql.User = result.data.getUser;
       this.user = result.data.getUser;
     });
   }

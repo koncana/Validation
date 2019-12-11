@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-options',
-  templateUrl: './options.page.html',
-  styleUrls: ['./options.page.scss'],
+  selector: 'app-about',
+  templateUrl: './about.page.html',
+  styleUrls: ['./about.page.scss'],
 })
-export class OptionsPage implements OnInit {
+export class AboutPage implements OnInit {
 
   constructor(private router: Router) { }
 
@@ -16,4 +16,5 @@ export class OptionsPage implements OnInit {
   goBack() {
     this.router.navigate(['tabs/tab1']);
   }
+
 }

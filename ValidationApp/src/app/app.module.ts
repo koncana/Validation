@@ -11,13 +11,12 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql/graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SQLite } from '@ionic-native/sqlite/ngx';
-import { IonicStorageModule } from '@ionic/storage';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, GraphQLModule, FormsModule, ReactiveFormsModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, GraphQLModule, FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,

@@ -7,12 +7,15 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 export class SqliteService {
 
   private databaseObj: SQLiteObject; // Database instance object
-  private name_model: string = ""; // Input field model
   private row_data: any = []; // Table rows
-  private readonly database_name: string = "freaky_datatable.db"; // DB name
-  private readonly table_name: string = "myfreakytable"; // Table name
+  private readonly database_name: string = "imageDB"; // DB name
+  private readonly table_name: string = "image"; // Table name
 
   constructor(private sqlite: SQLite) { }
+
+  get Rows_data(){
+    return this.row_data;
+  }
 
   createDB() {
     this.sqlite.create({
@@ -22,6 +25,7 @@ export class SqliteService {
       .then((db: SQLiteObject) => {
         this.databaseObj = db;
         alert('freaky_datatable Database Created!');
+        this.createTable();
       })
       .catch(e => {
         alert("error " + JSON.stringify(e))
@@ -38,12 +42,12 @@ export class SqliteService {
       });
   }
 
-  insertRow() {
-    if (!this.name_model.length) {
+  insertRow(image: string) {
+    if (!image.length) {
       alert("Enter Name");
       return;
     }
-    this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (Name) VALUES ("' + this.name_model + '")', [])
+    this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (Name) VALUES ("' + image + '")', [])
       .then(() => {
         alert('Row Inserted!');
         this.getRows();
@@ -54,7 +58,7 @@ export class SqliteService {
   }
 
   getRows() {
-    this.databaseObj.executeSql("SELECT * FROM " + this.table_name, [])
+    return this.databaseObj.executeSql("SELECT * FROM " + this.table_name, [])
       .then((res) => {
         this.row_data = [];
         if (res.rows.length > 0) {

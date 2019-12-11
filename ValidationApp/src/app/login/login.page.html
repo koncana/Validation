@@ -6,6 +6,8 @@
 
 <ion-content>
   <div class="center">
+    <ion-img [src]="base64Image" (click)="getPicture()"></ion-img>
+    <!-- <ion-button (click)="getPicture()">Modify image</ion-button> -->
     <ion-input [(ngModel)]="username" placeholder='Username'></ion-input>
     <ion-input [(ngModel)]='password' placeholder='Password' type="Password"></ion-input>
 

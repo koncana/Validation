@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Student } from '../interfaces/student';
 import { ValidationService } from '../services/validation.service';
+import { GraphQLModule } from '../graphql/graphql.module';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
   private student: Student = {
     dni: "",
@@ -22,58 +23,43 @@ export class Tab2Page {
     course: ""
   }
 
-  constructor(private api: ValidationService) {
+  constructor(private api: ValidationService, private graphql: GraphQLModule) {
   }
 
   ngOnInit() {
-    console.log("2"+this.api.Student.dni);
-    
     this.showStudent();
   }
 
   async showStudent() {
-    console.log("1"+this.api.Student.dni);
-    
-    this.student = this.api.Student;
+    this.student = Object.assign({}, this.api.Student);
   }
 
   set Student(student: Student) {
-    console.log("3"+this.api.Student.dni);
     this.student = student;
   }
 
-  modifyStudent() {
-    console.log(this.api.Student.dni);
-    if (this.student.dni === this.api.Student.dni) {
-      console.log(this.student.dni+"aqui"+this.api.Student.dni);
-      
-      this.api.updateUserDeleteStudent().subscribe(data => {
+  async modifyStudent() {
+    this.api.updateUserDeleteStudent().subscribe(data => {
+      if (this.student.dni === this.api.Student.dni) {
         this.api.updateStudent(this.student).subscribe(result => {
           this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
             this.api.getStudentFromUser();
-            this.showStudent();
+            this.api.getStudent(this.student.dni).subscribe(aux => {
+              this.student = aux.data.getStudent;
+            });
           });
         });
-      });
-    } else {
-      this.api.updateUserDeleteStudent().subscribe(data => {
+
+      } else {
         this.api.updateStudentAll(this.student).subscribe(result => {
           this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
             this.api.getStudentFromUser();
-            this.showStudent();
+            this.api.getStudent(this.student.dni).subscribe(aux => {
+              this.student = aux.data.getStudent;
+            });
           });
         });
-      });
-    }
-    // this.api.updateUserDeleteStudent().subscribe(data => {
-    //   this.api.createStudent(this.student).subscribe(result => {
-    //     this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
-    //       this.api.getStudentFromUser();
-    //       this.showStudent();
-    //     });
-    //   });
-    // });
-
-
+      }
+    });
   }
 }

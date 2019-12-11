@@ -29,7 +29,11 @@ const routes: Routes = [
   {
     path: 'student-register',
     loadChildren: () => import('./student-register/student-register.module').then( m => m.StudentRegisterPageModule)
+  },  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   }
+
 
   // {
   //   path: 'management',

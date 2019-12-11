@@ -25,7 +25,7 @@ export class ValidationService {
 
   constructor(private apollo: Apollo, private graphql: GraphQLModule) { }
 
-  get Student() {
+  get Student(): Student {
     return this.student;
   }
 
@@ -330,7 +330,7 @@ export class ValidationService {
     return this.apollo.mutate({
       mutation: updateUserAll,
       variables: {
-        oldUsername: this.graphql.user.username,
+        oldUsername: this.graphql.User.username,
         newUsername: username,
         password: "",
         role: "",
@@ -348,7 +348,7 @@ export class ValidationService {
     return this.apollo.mutate({
       mutation: updateUser,
       variables: {
-        username: this.graphql.user.username,
+        username: this.graphql.User.username,
         password: password,
         role: "",
         dni: ""
@@ -365,7 +365,7 @@ export class ValidationService {
     return this.apollo.mutate<any>({
       mutation: updateUser,
       variables: {
-        username: this.graphql.user.username,
+        username: this.graphql.User.username,
         password: "",
         role: "",
         dni: " "
@@ -400,7 +400,7 @@ export class ValidationService {
     return this.apollo.mutate<any>({
       mutation: updateUser,
       variables: {
-        username: this.graphql.user.username,
+        username: this.graphql.User.username,
         password: "",
         role: "",
         dni: newDni
@@ -451,6 +451,8 @@ export class ValidationService {
     })
       .valueChanges.subscribe(result => {
         this.student = result.data.getStudentFromUser;
+        console.log("prueba " + this.student.studentName);
+
       });
   }
 
@@ -646,7 +648,7 @@ export class ValidationService {
     });
   }
 
-  deleteModule(cod: number){
+  deleteModule(cod: number) {
     const deleteModule = gql`
     mutation deleteModule($cod: ID!){
       deleteModule(cod: $cod)
@@ -660,7 +662,7 @@ export class ValidationService {
     });
   }
 
-  updateModule(cod: number, moduleName: string){
+  updateModule(cod: number, moduleName: string) {
     const updateModule = gql`
     mutation updateModule($cod: ID!, $moduleName: String!){
       updateModule(cod: $cod, moduleName: $moduleName)
@@ -734,7 +736,7 @@ export class ValidationService {
       query: getUser,
       fetchPolicy: "network-only",
       variables: {
-        username: this.graphql.user.username
+        username: this.graphql.User.username
       }
     })
       .valueChanges;

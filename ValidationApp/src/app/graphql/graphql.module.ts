@@ -18,7 +18,7 @@ import { User } from '../interfaces/users';
 
 export class GraphQLModule {
 
-  user: User = {
+  private user: User = {
     username: "",
     password: "",
     role: "" 
@@ -28,14 +28,17 @@ export class GraphQLModule {
 
   constructor(private apollo: Apollo, private httpLink: HttpLink) { }
 
+  get User(): User{
+    return this.user;
+  }
+
   async setApollosEmpty(){
     this.headers = new HttpHeaders();
     this.headers =  this.headers.append("Content-Type", "application/json");
-    //this.headers =  this.headers.append("Access-Control-Request-Headers", "*");
 
     this.apollo.removeClient();
     this.apollo.create({      
-      link: this.httpLink.create({ headers: this.headers, uri: "http://localhost:8080/graphql" }),
+      link: this.httpLink.create({ headers: this.headers, uri: "http://192.168.103.90:8080/graphql" }),
       cache: new InMemoryCache()
     });
   }
@@ -44,11 +47,10 @@ export class GraphQLModule {
     this.headers = new HttpHeaders();
     this.headers =  this.headers.append("Authorization", "Basic " + btoa(this.user.username+":"+this.user.password));
     this.headers =  this.headers.append("Content-Type", "application/json");
-    //this.headers =  this.headers.append("Access-Control-Request-Headers", "*");
 
     this.apollo.removeClient();
     this.apollo.create({      
-      link: this.httpLink.create({ headers: this.headers, uri: "http://localhost:8080/graphql" }),
+      link: this.httpLink.create({ headers: this.headers, uri: "http://192.168.103.90:8080/graphql" }),
       cache: new InMemoryCache()
     });
   }

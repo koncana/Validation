@@ -10,17 +10,17 @@ export class TabsPage {
 
   private isAdmin = false;
 
-  constructor(private graphql: GraphQLModule) {}
+  constructor(private graphql: GraphQLModule) { }
 
-  ngOnInit(){
-    if (this.graphql.user.role == "ROLE_ADMIN") {
-      this.isAdmin= true;
-    }else{
+  ngOnInit() {
+    if (this.graphql.User.role == "ROLE_ADMIN") {
+      this.isAdmin = true;
+    } else {
       this.isAdmin = false;
     }
   }
 
-  setIsAdmin(isAdmin: boolean){
+  setIsAdmin(isAdmin: boolean) {
     this.isAdmin = isAdmin;
   }
 
