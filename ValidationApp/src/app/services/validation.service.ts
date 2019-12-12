@@ -29,20 +29,6 @@ export class ValidationService {
     return this.student;
   }
 
-  deleteStudent(dni: string) {
-    const deleteStudent = gql`
-      mutation deleteStudent($dni: ID!){
-        deleteStudent(dni: $dni)
-      }
-    `;
-    return this.apollo.mutate({
-      mutation: deleteStudent,
-      variables: {
-        dni: dni,
-      }
-    });
-  }
-
   updateStudent(newStudent: Student) {
     const updateStudent = gql`
       mutation updateStudent($dni: ID!, $studentName: String!, $firstSurname: String!, $secondSurname: String, 

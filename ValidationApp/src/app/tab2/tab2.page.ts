@@ -24,6 +24,8 @@ export class Tab2Page implements OnInit {
     course: ""
   }
 
+  private oldDni: string;
+
   constructor(private api: ValidationService, private graphql: GraphQLModule, private toastController: ToastController) {
   }
 
@@ -33,10 +35,7 @@ export class Tab2Page implements OnInit {
 
   async showStudent() {
     this.student = Object.assign({}, this.api.Student);
-  }
-
-  set Student(student: Student) {
-    this.student = student;
+    this.oldDni = this.student.dni;
   }
 
   async modifyStudent() {
@@ -55,10 +54,16 @@ export class Tab2Page implements OnInit {
           this.api.updateUserDeleteStudent().subscribe(data => {
             this.api.updateStudent(this.student).subscribe(result => {
               this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
+                this.api.removeStudent(this.oldDni).subscribe(() => {
+                  
+                });
+                console.log(this.api.Student.dni);
+
+                console.log(this.oldDni);
+
                 this.api.getStudentFromUser();
-                this.api.deleteStudent(this.student.dni);
                 this.api.getStudent(this.student.dni).subscribe(aux => {
-                  this.student = aux.data.getStudent;                  
+                  this.student = aux.data.getStudent;
                 });
               });
             });
