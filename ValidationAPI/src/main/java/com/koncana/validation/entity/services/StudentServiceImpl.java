@@ -200,12 +200,11 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@Transactional(readOnly = true)
 	public Optional<Student> getStudent(final String dni) {
 		return this.studentRepository.findById(dni);
 	}
-
+ 
 	@Override
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@Transactional

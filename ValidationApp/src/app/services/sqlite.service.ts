@@ -13,7 +13,7 @@ export class SqliteService {
 
   constructor(private sqlite: SQLite) { }
 
-  get Rows_data(){
+  get Rows_data() {
     return this.row_data;
   }
 
@@ -35,7 +35,6 @@ export class SqliteService {
   createTable() {
     this.databaseObj.executeSql('CREATE TABLE IF NOT EXISTS ' + this.table_name + ' (pid INTEGER PRIMARY KEY, Name varchar(255))', [])
       .then(() => {
-        alert('Table Created!');
       })
       .catch(e => {
         alert("error " + JSON.stringify(e))
@@ -44,12 +43,10 @@ export class SqliteService {
 
   insertRow(image: string) {
     if (!image.length) {
-      alert("Enter Name");
       return;
     }
     this.databaseObj.executeSql('INSERT INTO ' + this.table_name + ' (Name) VALUES ("' + image + '")', [])
       .then(() => {
-        alert('Row Inserted!');
         this.getRows();
       })
       .catch(e => {
@@ -72,10 +69,19 @@ export class SqliteService {
       });
   }
 
-  deleteRow(item) {
-    this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE pid = " + item.pid, [])
+  getFirstRow() {
+    return this.databaseObj.executeSql("SELECT * FROM " + this.table_name + "WHERE pid = 1", [])
       .then((res) => {
-        alert("Row Deleted!");
+        return res.rows.item(0);
+      })
+      .catch(e => {
+        alert("error " + JSON.stringify(e))
+      });
+  }
+
+  deleteRow(item) {
+    return this.databaseObj.executeSql("DELETE FROM " + this.table_name + " WHERE pid = " + item.pid, [])
+      .then((res) => {
         this.getRows();
       })
       .catch(e => {

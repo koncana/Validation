@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../interfaces/student';
 import { ValidationService } from '../services/validation.service';
 import { GraphQLModule } from '../graphql/graphql.module';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -23,7 +24,7 @@ export class Tab2Page implements OnInit {
     course: ""
   }
 
-  constructor(private api: ValidationService, private graphql: GraphQLModule) {
+  constructor(private api: ValidationService, private graphql: GraphQLModule, private toastController: ToastController) {
   }
 
   ngOnInit() {
@@ -39,18 +40,8 @@ export class Tab2Page implements OnInit {
   }
 
   async modifyStudent() {
-    this.api.updateUserDeleteStudent().subscribe(data => {
-      if (this.student.dni === this.api.Student.dni) {
-        this.api.updateStudent(this.student).subscribe(result => {
-          this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
-            this.api.getStudentFromUser();
-            this.api.getStudent(this.student.dni).subscribe(aux => {
-              this.student = aux.data.getStudent;
-            });
-          });
-        });
-
-      } else {
+    this.api.getStudent(this.student.dni).subscribe(result => {
+      if (result.data.getStudent === null) {
         this.api.updateStudentAll(this.student).subscribe(result => {
           this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
             this.api.getStudentFromUser();
@@ -59,7 +50,31 @@ export class Tab2Page implements OnInit {
             });
           });
         });
+      } else {
+        if (result.data.getStudent.dni === this.api.Student.dni) {
+          this.api.updateUserDeleteStudent().subscribe(data => {
+            this.api.updateStudent(this.student).subscribe(result => {
+              this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
+                this.api.getStudentFromUser();
+                this.api.deleteStudent(this.student.dni);
+                this.api.getStudent(this.student.dni).subscribe(aux => {
+                  this.student = aux.data.getStudent;                  
+                });
+              });
+            });
+          });
+        } else {
+          this.presentToast("Student already exists");
+        }
       }
     });
+  }
+
+  async presentToast(inputMessage: string) {
+    const toast = await this.toastController.create({
+      message: inputMessage,
+      duration: 2000
+    });
+    toast.present();
   }
 }

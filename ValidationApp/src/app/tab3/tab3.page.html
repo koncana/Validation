@@ -7,12 +7,13 @@
 </ion-header>
 
 <ion-content>
-  <p (click) = "updateUsername()">Username: {{user.username}}</p>
+  <p (click)="updateUsername()">Username: {{user.username}}</p>
   <ion-row>
-      <p (click) = "updatePassword()">Password: </p>
-      <ion-input (click) = "updatePassword()" value="password" type="password" readonly></ion-input>
+    <p (click)="updatePassword()">Password: </p>
+    <ion-input (click)="updatePassword()" value="password" type="password" readonly></ion-input>
   </ion-row>
-  <p (click) = "updateRole()">Role: {{user.role}}</p>
+  <p (click)="updateRole()">Role: {{user.role}}</p>
+  <ion-button size="small" color="tertiary" (click)='goImages()'>Gallery</ion-button>
   <ion-button size="small" color="tertiary" (click)='logout()'>Logout</ion-button>
   <ion-button size="small" color="tertiary" (click)='delete()'>Delete Account</ion-button>
 </ion-content>

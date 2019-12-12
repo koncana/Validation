@@ -64,7 +64,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional(readOnly = true)
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public Optional<Users> getUser(final String username) {
 		return this.userRepository.findById(username);
 	}

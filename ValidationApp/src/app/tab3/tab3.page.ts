@@ -71,6 +71,10 @@ export class Tab3Page {
     this.router.navigate(['login']);
   }
 
+  goImages() {
+    this.router.navigate(['images']);
+  }
+
   async updatePassword() {
     let alert = await this.alertController.create({
       header: 'New Password',
