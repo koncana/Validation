@@ -258,8 +258,8 @@ export class ManagementPage {
       },
       {
         type: 'radio',
-        label: "Bloqued",
-        value: "bloqued",
+        label: "Blocked",
+        value: "blocked",
         checked: 0
       }
     );

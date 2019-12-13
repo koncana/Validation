@@ -6,10 +6,10 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 })
 export class SqliteService {
 
-  private databaseObj: SQLiteObject; // Database instance object
-  private row_data: any = []; // Table rows
-  private readonly database_name: string = "imageDB"; // DB name
-  private readonly table_name: string = "image"; // Table name
+  private databaseObj: SQLiteObject; 
+  private row_data: any = []; 
+  private readonly database_name: string = "imageDB"; 
+  private readonly table_name: string = "image"; 
 
   constructor(private sqlite: SQLite) { }
 
@@ -24,7 +24,6 @@ export class SqliteService {
     })
       .then((db: SQLiteObject) => {
         this.databaseObj = db;
-        alert('freaky_datatable Database Created!');
         this.createTable();
       })
       .catch(e => {
@@ -63,16 +62,6 @@ export class SqliteService {
             this.row_data.push(res.rows.item(i));
           }
         }
-      })
-      .catch(e => {
-        alert("error " + JSON.stringify(e))
-      });
-  }
-
-  getFirstRow() {
-    return this.databaseObj.executeSql("SELECT * FROM " + this.table_name + "WHERE pid = 1", [])
-      .then((res) => {
-        return res.rows.item(0);
       })
       .catch(e => {
         alert("error " + JSON.stringify(e))

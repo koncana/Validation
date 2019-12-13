@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">Register</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="tertiary" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -44,7 +47,6 @@
               <ion-button class="btn btn-primary" [disabled]="!userForm.valid" type="submit" color="tertiary">Set
                 Student
               </ion-button>
-              <ion-button class="btn btn-primary" color="tertiary" (click)="goBack()">Cancel</ion-button>
             </div>
           </div>
         </ion-col>

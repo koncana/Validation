@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { GraphQLModule } from '../graphql/graphql.module';
 import { Student } from '../interfaces/student';
-import { Modules } from '../interfaces/module';
 
 @Injectable({
   providedIn: 'root'
@@ -451,8 +450,6 @@ export class ValidationService {
     })
       .valueChanges.subscribe(result => {
         this.student = result.data.getStudentFromUser;
-        console.log("prueba " + this.student.studentName);
-
       });
   }
 

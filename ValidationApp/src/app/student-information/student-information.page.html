@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">Student Information</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="tertiary" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -45,5 +48,4 @@
     <ion-label>Course:</ion-label>
     <ion-input [(ngModel)]="student.course" readOnly class="ion-text-right"></ion-input>
   </ion-item>
-  <ion-button color="tertiary" (click)="goBack()">Back</ion-button>
 </ion-content>

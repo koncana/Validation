@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path:'', redirectTo: 'login', pathMatch: 'full'},
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
@@ -29,7 +30,8 @@ const routes: Routes = [
   {
     path: 'student-register',
     loadChildren: () => import('./student-register/student-register.module').then( m => m.StudentRegisterPageModule)
-  },  {
+  },
+  {
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   },
@@ -37,12 +39,6 @@ const routes: Routes = [
     path: 'images',
     loadChildren: () => import('./images/images.module').then( m => m.ImagesPageModule)
   }
-
-
-  // {
-  //   path: 'management',
-  //   loadChildren: () => import('./management/management.module').then( m => m.ManagementPageModule)
-  // }
 ];
 @NgModule({
   imports: [

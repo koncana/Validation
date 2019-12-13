@@ -55,15 +55,10 @@ export class Tab2Page implements OnInit {
             this.api.updateStudent(this.student).subscribe(result => {
               this.api.updateStudentFromUser(this.student.dni).subscribe(res => {
                 this.api.removeStudent(this.oldDni).subscribe(() => {
-                  
-                });
-                console.log(this.api.Student.dni);
-
-                console.log(this.oldDni);
-
-                this.api.getStudentFromUser();
-                this.api.getStudent(this.student.dni).subscribe(aux => {
-                  this.student = aux.data.getStudent;
+                  this.api.getStudentFromUser();
+                  this.api.getStudent(this.student.dni).subscribe(aux => {
+                    this.student = aux.data.getStudent;
+                  });
                 });
               });
             });

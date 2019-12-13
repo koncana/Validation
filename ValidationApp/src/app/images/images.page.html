@@ -1,12 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">Images</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="tertiary" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-button (click)="takePicture()" color="tertiary">Add Image</ion-button>
-  <ion-button (click)="goBack()" color="tertiary">Back</ion-button>
   <ion-list *ngFor="let image of images">
     <ion-img [src]="image.Name"></ion-img>
     <ion-icon name="trash" color="danger" (click)="deleteImage(image)" slot="end"></ion-icon>

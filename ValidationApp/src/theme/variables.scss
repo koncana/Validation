@@ -74,4 +74,72 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  .dark-theme {
+    ion-content {
+      --background: black;
+      --color: white;
+    }
+
+    ion-header {
+      --background: black;
+      --color: white;
+    }
+
+    ion-title {
+      --background: black;
+      --color: white;
+    }
+
+    ion-label {
+      --background: black;
+      --color: white;
+    }
+
+    ion-item {
+      --background: black;
+      --color: white;
+    }
+
+    ion-button {
+      --background: black;
+      --color: white;
+    }
+
+    ion-card {
+      --background: black;
+      --color: white;
+    }
+
+    ion-toolbar {
+      --background: black;
+      --color: white;
+    }
+
+    ion-grid{
+      --background: black;
+      --color: white; 
+    }
+
+    ion-row {
+      --background: black;
+      --color: white; 
+    }
+
+    ion-col {
+      --background: black;
+      --color: white; 
+    }
+
+    ion-tabs {
+      --background: black;
+      --color: white; 
+    }
+
+    ion-tab-bar {
+      --background: black;
+      --color: white; 
+    }
+
+  }
 }

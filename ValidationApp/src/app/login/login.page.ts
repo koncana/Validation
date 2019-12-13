@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../services/validation.service'
 import { ToastController } from '@ionic/angular';
-import { Router, NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 import { GraphQLModule } from '../graphql/graphql.module';
 import { SqliteService } from '../services/sqlite.service';
 import { Observable } from 'rxjs';
-import { filter } from 'minimatch';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
 
   private username: string;
   private password: string;
@@ -24,7 +23,7 @@ export class LoginPage {
   }
 
   ngOnInit() {
-    //this.initializeDatabase();
+    // this.initializeDatabase();
   }
 
   initializeDatabase() {
@@ -61,5 +60,13 @@ export class LoginPage {
       duration: 2000
     });
     toast.present();
+  }
+
+  gotToOptions() {
+    this.router.navigate(['options']);
+  }
+
+  gotToAbout() {
+    this.router.navigate(['about'])
   }
 }

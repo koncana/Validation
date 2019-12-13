@@ -22,7 +22,7 @@
   <div *ngIf="validationPressed">
     <ion-item lines="none">
       <ion-input [(ngModel)]="searchStudent" type="text" placeholder="Student dni"></ion-input>
-      <ion-icon name="search" (click)="getValidation()" slot="end"></ion-icon>
+      <ion-icon name="search" color="secondary" (click)="getValidation()" slot="end"></ion-icon>
     </ion-item>
     <div *ngIf="validationSearched">
       <ion-grid>
@@ -34,7 +34,7 @@
             <ion-item lines="none">
               <ion-icon name="information-circle-outline" (click)="enterValidation(validation.dni)" slot="end">
               </ion-icon>
-              <ion-icon name="person" slot="end" (click)="enterStudent(validation)"></ion-icon>
+              <ion-icon name="person" color="secondary" slot="end" (click)="enterStudent(validation)"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -62,7 +62,7 @@
             <ion-item lines="none">
               <ion-icon name="information-circle-outline" (click)="enterValidation(validation.dni)" slot="end">
               </ion-icon>
-              <ion-icon name="person" slot="end" (click)="enterStudent(validation)"></ion-icon>
+              <ion-icon name="person" color="secondary" slot="end" (click)="enterStudent(validation)"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -72,7 +72,7 @@
   <div *ngIf="studentPressed">
     <ion-item lines="none">
       <ion-input [(ngModel)]="dni" type="text" placeholder="Student dni"></ion-input>
-      <ion-icon name="search" (click)="getStudent()" slot="end"></ion-icon>
+      <ion-icon name="search" color="secondary" (click)="getStudent()" slot="end"></ion-icon>
     </ion-item>
     <div *ngIf="studentSearched">
       <ion-grid>
@@ -88,7 +88,7 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="person" (click)="enterStudent(student)" slot="end"></ion-icon>
+              <ion-icon name="person" color="secondary" (click)="enterStudent(student)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -125,7 +125,7 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="person" (click)="enterStudent(student)" slot="end"></ion-icon>
+              <ion-icon name="person" color="secondary" (click)="enterStudent(student)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -135,7 +135,7 @@
   <div *ngIf="userPressed">
     <ion-item lines="none">
       <ion-input [(ngModel)]="username" type="number" placeholder="Username"></ion-input>
-      <ion-icon name="search" (click)="getUser()" slot="end"></ion-icon>
+      <ion-icon name="search" color="secondary" (click)="getUser()" slot="end"></ion-icon>
     </ion-item>
     <div *ngIf="userSearched">
       <ion-grid>
@@ -180,7 +180,7 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyUser(user.username)" slot="end"></ion-icon>
+              <ion-icon name="cog" color="tertiary" (click)="modifyUser(user.username)" slot="end"></ion-icon>
               <ion-icon name="trash" color="danger" (click)="deleteUser(user.username)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
@@ -196,7 +196,7 @@
     </ion-item>
     <ion-item lines="none">
       <ion-input [(ngModel)]="cod" type="number" placeholder="Code"></ion-input>
-      <ion-icon name="search" (click)="getModule()" slot="end"></ion-icon>
+      <ion-icon name="search" color="secondary" (click)="getModule()" slot="end"></ion-icon>
     </ion-item>
     <div *ngIf="moduleSearched">
       <ion-grid>
@@ -209,7 +209,7 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
+              <ion-icon name="cog" color="tertiary" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
               <ion-icon name="trash" color="danger" (click)="deleteModule(module.cod)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
@@ -241,7 +241,7 @@
           </ion-col>
           <ion-col>
             <ion-item lines="none">
-              <ion-icon name="cog" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
+              <ion-icon name="cog" color="tertiary" (click)="modifyModule(module.cod)" slot="end"></ion-icon>
               <ion-icon name="trash" color="danger" (click)="deleteModule(module.cod)" slot="end"></ion-icon>
             </ion-item>
           </ion-col>

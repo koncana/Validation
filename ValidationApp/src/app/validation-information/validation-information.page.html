@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>validationInformation</ion-title>
+    <ion-title class="ion-text-center">Validation Information</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="tertiary" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -88,5 +91,4 @@
       </ion-row>
     </ion-grid>
   </ion-list>
-  <ion-button (click)="goBack()" color="tertiary">Back</ion-button>
 </ion-content>

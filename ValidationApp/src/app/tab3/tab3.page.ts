@@ -67,7 +67,7 @@ export class Tab3Page {
     });
   }
 
-  async logout() {
+  async logout() {    
     this.router.navigate(['login']);
   }
 

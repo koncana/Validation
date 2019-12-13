@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../services/validation.service'
-import { GraphQLModule } from '../graphql/graphql.module';
 import { Modules } from '../interfaces/module';
 import { ValidateModule } from '../interfaces/validateModule';
 import { AlertController } from '@ionic/angular';
@@ -14,31 +13,18 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page implements OnInit {
 
-  ngOnInit(): void {
-    this.initializeAll();
-  }
-
   private contributeModules: Array<Modules>;
   private validateModules: Array<ValidateModule>;
   private allModules: Array<Modules>;
 
-  constructor(private router: Router, private menu: MenuController, private api: ValidationService, private graphql: GraphQLModule, private alertController: AlertController) { }
+  constructor(private router: Router, private menu: MenuController, private api: ValidationService, private alertController: AlertController) { }
 
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
+  ngOnInit(): void {
+    this.initializeAll();
   }
 
   ionViewDidEnter() {
     this.initializeAll();
-  }
-
-  gotToOptions() {
-    this.router.navigate(['options']);
-  }
-
-  gotToAbout() {
-    this.router.navigate(['about'])
   }
 
   async initializeAll() {
@@ -58,15 +44,18 @@ export class Tab1Page implements OnInit {
     });
   }
 
-  async getAllModules() {
-    this.api.getAllModules().subscribe(result => {
+  addModules(type: string) {
+    return this.api.getAllModules().subscribe(result => {
       this.allModules = result.data.getAllModules;
+      if (type === "contribute") {
+        this.listOfOptions("contribute");
+      } else {
+        this.listOfOptions("validate");
+      }
     });
   }
 
-  async addContributeModule() {
-    await this.getAllModules();
-
+  listOfOptions(type: string) {
     let radio_options = [];
     for (let module of this.allModules) {
       radio_options.push({
@@ -76,6 +65,14 @@ export class Tab1Page implements OnInit {
         checked: 0
       });
     }
+    if (type === "contribute") {
+      this.contributeAlert(radio_options);
+    } else {
+      this.validateAlert(radio_options);
+    }
+  }
+
+  async contributeAlert(radio_options: any) {
     let alert = await this.alertController.create({
       header: 'Modules',
       inputs: radio_options,
@@ -99,18 +96,7 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
 
-  async addValidateModules() {
-    await this.getAllModules();
-
-    let radio_options = [];
-    for (let module of this.allModules) {
-      radio_options.push({
-        type: 'radio',
-        label: module.cod + " | " + module.moduleName,
-        value: module.cod,
-        checked: 0
-      });
-    }
+  async validateAlert(radio_options: any) {
     let alert = await this.alertController.create({
       header: 'Modules',
       inputs: radio_options,

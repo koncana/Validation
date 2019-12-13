@@ -7,20 +7,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-menu side="start" menuId="first" contentId="main">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Start Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item (click)="gotToOptions()">Options</ion-item>
-        <ion-item (click)="gotToAbout()">About</ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-router-outlet id="main"></ion-router-outlet>
   <p>Modules to Contribute</p>
   <ion-grid>
     <ion-row>
@@ -60,7 +46,7 @@
   </ion-list>
   <ion-fab horizontal="end">
     <ion-fab-button color="tertiary">
-      <ion-icon name="add" (click)="addContributeModule()"></ion-icon>
+      <ion-icon name="add" (click)="addModules('contribute')"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <br />
@@ -116,10 +102,10 @@
   </ion-list>
   <ion-fab horizontal="end">
     <ion-fab-button color="tertiary">
-      <ion-icon name="add" (click)="addValidateModules()"></ion-icon>
+      <ion-icon name="add" (click)="addModules('validate')"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <br/>
-  <br/>
-  <h6 class="ion-text-center">*Note: Slide left to right to show a menu</h6>
+  <br />
+  <br />
+  <h6 class="ion-text-center">*Hint: Slide left to right to show a menu</h6>
 </ion-content>
