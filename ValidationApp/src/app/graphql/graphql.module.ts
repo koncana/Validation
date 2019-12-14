@@ -21,6 +21,8 @@ export class GraphQLModule {
     role: "" 
   }
 
+  private uri: string = "http://192.168.1.36:8080/graphql";
+
   private headers: HttpHeaders;
 
   constructor(private apollo: Apollo, private httpLink: HttpLink) { }
@@ -35,7 +37,7 @@ export class GraphQLModule {
 
     this.apollo.removeClient();
     this.apollo.create({      
-      link: this.httpLink.create({ headers: this.headers, uri: "http://192.168.103.90:8080/graphql" }),
+      link: this.httpLink.create({ headers: this.headers, uri: this.uri }),
       cache: new InMemoryCache()
     });
   }
@@ -47,7 +49,7 @@ export class GraphQLModule {
 
     this.apollo.removeClient();
     this.apollo.create({      
-      link: this.httpLink.create({ headers: this.headers, uri: "http://192.168.103.90:8080/graphql" }),
+      link: this.httpLink.create({ headers: this.headers, uri: this.uri }),
       cache: new InMemoryCache()
     });
   }

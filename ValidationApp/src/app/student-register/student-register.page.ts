@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from '../services/validation.service';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/users';
@@ -11,7 +11,7 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './student-register.page.html',
   styleUrls: ['./student-register.page.scss'],
 })
-export class StudentRegisterPage {
+export class StudentRegisterPage implements OnInit{
 
   private user: User = {
     username: "",
