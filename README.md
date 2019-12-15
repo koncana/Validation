@@ -32,7 +32,7 @@
 
 * [PostgreSQL](https://www.postgresql.org/download/) - IDE used for Backend
 * [PgAdmin 4](https://www.pgadmin.org/download/) - Database used
-* [Ionic 5] (https://ionicframework.com/getting-started) - Framework used for Frontend
+* [Ionic 5](https://ionicframework.com/getting-started) - Framework used for Frontend
 
 ### Author
 
