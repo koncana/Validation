@@ -23,7 +23,6 @@
 * PgAdmin 4. 
 * SDK.
 * Gradle.
-* SDK.
 * JDK 11 for API IDE.
 * JDK 8 JAVA_HOME.
 
