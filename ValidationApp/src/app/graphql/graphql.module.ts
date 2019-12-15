@@ -21,7 +21,7 @@ export class GraphQLModule {
     role: "" 
   }
 
-  private uri: string = "http://192.168.1.36:8080/graphql";
+  private uri: string = "http://ipHere:8080/graphql";
 
   private headers: HttpHeaders;
 
